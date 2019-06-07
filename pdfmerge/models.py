@@ -3,4 +3,4 @@ from django.db import models
 
 class CustomUser(AbstractUser):
     pass
-    # add additional fields in her
+    # add additional fields in here
