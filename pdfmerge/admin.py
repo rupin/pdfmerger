@@ -16,5 +16,5 @@ class PDFFormAdmin(admin.ModelAdmin):
 
 admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(PDFForm,PDFFormAdmin)
-admin.site.register(FormFields)
+admin.site.register(FormField)
 admin.site.register(UserData)
