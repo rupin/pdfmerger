@@ -1,12 +1,11 @@
 from django.http import HttpResponse
 from django.template import loader
-
+from .models import *
 
 def getUsers(request):
-    userModel = get_user_model()
-	users=userModel.objects.all()
+    users = CustomUser.objects.all()
     template = loader.get_template('index.html')
     context = {
-        'userList': users,
+        'userList': user_list,
     }
     return HttpResponse(template.render(context, request))
