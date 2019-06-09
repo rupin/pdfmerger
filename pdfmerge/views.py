@@ -6,6 +6,6 @@ def getUsers(request):
     users = CustomUser.objects.all()
     template = loader.get_template('index.html')
     context = {
-        'userList': user_list,
+        'userList': users,
     }
     return HttpResponse(template.render(context, request))
