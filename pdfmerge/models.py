@@ -14,7 +14,7 @@ class PDFForm(models.Model):
 	
 	
 
-class FormFields(models.Model):	
+class FormField(models.Model):	
 	field_id=models.AutoField(primary_key=True)
 	pdf_id=models.ForeignKey('PDFForm', on_delete=models.CASCADE)
 	field_type=models.IntegerField()
