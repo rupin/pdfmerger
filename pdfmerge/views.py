@@ -3,7 +3,8 @@ from django.template import loader
 
 
 def getUsers(request):
-    users = User.objects.all()
+    userModel = get_user_model()
+	users=userModel.objects.all()
     template = loader.get_template('index.html')
     context = {
         'userList': users,
