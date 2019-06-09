@@ -3,9 +3,9 @@ from django.template import loader
 
 
 def getUsers(request):
-    user_list = CustomUser.objects()
+    users = User.objects.all()
     template = loader.get_template('index.html')
     context = {
-        'userList': user_list,
+        'userList': users,
     }
     return HttpResponse(template.render(context, request))
