@@ -10,8 +10,11 @@ class CustomUserAdmin(UserAdmin):
     form = CustomUserChangeForm
     model = CustomUser
     list_display = ['email', 'username',]
+	
+class PDFFormAdmin(admin.ModelAdmin):
+    pass
 
 admin.site.register(CustomUser, CustomUserAdmin)
-admin.site.register(PDFForm)
+admin.site.register(PDFForm,PDFFormAdmin)
 admin.site.register(FormFields)
 admin.site.register(UserData)
