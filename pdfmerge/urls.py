@@ -24,5 +24,6 @@ from django.views.generic.base import TemplateView # new
 urlpatterns = [
     path('admin/', admin.site.urls),
 	path('', views.getUsers, name='index'),
-	path('', include('django.contrib.auth.urls'))
+	path('/loginSubmit', views.loginUser, name='index')
+	path('/loginForm', views.loginUser, name='index')
 ]
