@@ -16,7 +16,7 @@ def loginForm(request):
 	context = {
         'errors': "",
     }
-	template = loader.get_template('registeration/login.html')
+	template = loader.get_template('registration/login.html')
 	return HttpResponse(template.render(context, request))
 	
 	
