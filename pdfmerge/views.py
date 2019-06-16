@@ -52,6 +52,8 @@ def fillForm(request):
 	fieldData.append(newField)
 
 	pdfURL=dataLayerPDF.addText(fieldData)
-	htmlResponse= '<a href="'+pdfURL+'" target="_new">'
-
-	return HttpResponse(htmlResponse)
+	context = {
+        'pdfURL': pdfURL,
+    }
+	template = loader.get_template('pdf.html')
+	return HttpResponse(template.render(context, request))
