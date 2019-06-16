@@ -1,2 +1,12 @@
-{% load static %}
-<a href="{% static pdfURL %}"}}">PDF</a>
+<table>
+{%for field in fieldData%}
+	<tr>
+	<td>{{field.fk_user_id}}</td>
+	<td>{{field.field_type}}</td>
+	
+	<td>{{field.field_text}}</td>
+	
+	</tr>
+{% end for %}
+
+</table>
