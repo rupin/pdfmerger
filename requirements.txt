@@ -1,0 +1,8 @@
+psycopg2-binary  
+django-heroku  
+gunicorn  
+django-storages 
+boto3 
+django-import-export
+reportlab
+PyPDF2
