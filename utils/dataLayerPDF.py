@@ -3,6 +3,8 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter, A4
 from django.conf import settings as djangoSettings
 from io import BytesIO
+from PyPDF2 import PdfFileReader,PdfFileWriter
+import sys
 fontSize=15
 pdfCellXOffset=(16.9/2)-(fontSize/4)
 pdfCellYOffset=(19.86/2)-(fontSize/4)
