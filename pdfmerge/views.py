@@ -32,24 +32,27 @@ def loginUser(request):
 		return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
 
 def fillForm(request):
-	newField={}
-	fieldData=[] 
-	newField["x"]=137
-	newField["y"]=676
-	newField["text"]="Rupin Raghavji Chheda"
-	newField["h-inc"]=17
-	newField["page"]=0
-	newField["type"]="block-text"
-	fieldData.append(newField)
+	# newField={}
+	# fieldData=[] 
+	# newField["x"]=137
+	# newField["y"]=676
+	# newField["text"]="Rupin Raghavji Chheda"
+	# newField["h-inc"]=17
+	# newField["page"]=0
+	# newField["type"]="block-text"
+	# fieldData.append(newField)
 
-	newField={}
-	newField["x"]=135
-	newField["y"]=494
-	newField["text"]="India"
-	newField["h-inc"]=17
-	newField["page"]=0
-	newField["type"]="block-text"
-	fieldData.append(newField)
+	# newField={}
+	# newField["x"]=135
+	# newField["y"]=494
+	# newField["text"]="India"
+	# newField["h-inc"]=17
+	# newField["page"]=0
+	# newField["type"]="block-text"
+	# fieldData.append(newField)
+
+
+	
 
 	pdfData=dataLayerPDF.addText(fieldData)
 	#output=dataLayerPDF.mergePDFs()

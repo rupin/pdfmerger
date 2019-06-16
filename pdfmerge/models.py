@@ -24,7 +24,7 @@ class FormField(models.Model):
 class UserData(models.Model):
 	#pass	
 	fk_user_id=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,default=0)
-	field_type=models.IntegerField(default=0)
+	field_type=models.ManyToManyField(FormField, default=0)
 	field_text=models.CharField(max_length=200,default='')
 	
 	
