@@ -52,7 +52,7 @@ def fillForm(request):
 	# fieldData.append(newField)
 
 
-	fieldData=UserData.objects.all(fk_user_id=1).formfield_set.all()
+	fieldData=UserData.objects.get(fk_user_id=1).formfield_set.all()
 	
 
 	# pdfData=dataLayerPDF.addText(fieldData)
