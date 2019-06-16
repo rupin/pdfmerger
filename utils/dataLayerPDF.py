@@ -53,7 +53,7 @@ def mergePDFs(fileBuffer):
 
 	temporarylocation="datalayer.pdf"
 	with open(temporarylocation,'wb') as out: ## Open temporary file as bytes
-		out.write(fileBuffer.read())                ## Read bytes into file
+		out.write(fileBuffer.getValue())                ## Read bytes into file
 
 
 	EmptyForm = PdfFileReader(open(baseLayerPath, "rb"))
