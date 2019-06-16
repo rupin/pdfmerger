@@ -43,7 +43,7 @@ def addText(FieldData):
 	my_canvas.save()
 	pdf = buffer.getvalue()
 	buffer.close()
-	return pdf
+	return buffer
 	
 def mergePDFs(fileBuffer):
 	#formPages=["form1.pdf", "svg_on_canvas.pdf"] #Singapore Visa
