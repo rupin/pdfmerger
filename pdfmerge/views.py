@@ -52,7 +52,7 @@ def fillForm(request):
 	fieldData.append(newField)
 
 	PDFBytes=dataLayerPDF.addText(fieldData)
-	output=dataLayerPDF.mergePDFs()
+	#output=dataLayerPDF.mergePDFs()
 	response = HttpResponse(content_type='application/pdf')
 	response['Content-Disposition'] = 'attachment; filename="dataLayer.pdf"'
 	response.write(PDFBytes)
