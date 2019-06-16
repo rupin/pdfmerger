@@ -5,6 +5,9 @@ from django.conf import settings as djangoSettings
 from io import BytesIO
 from PyPDF2 import PdfFileReader,PdfFileWriter
 import sys
+
+import os
+
 fontSize=15
 pdfCellXOffset=(16.9/2)-(fontSize/4)
 pdfCellYOffset=(19.86/2)-(fontSize/4)
@@ -46,7 +49,7 @@ def mergePDFs(fileBuffer):
 	#formPages=["form1.pdf", "svg_on_canvas.pdf"] #Singapore Visa
 	#formPages=["Spain Visa.pdf", "svg_on_canvas.pdf"] # spain Visa
 	#buffer = BytesIO()
-	baseLayerPath=djangoSettings.STATIC_URL + "pdfs/SingaporeVisa.pdf"
+	baseLayerPath=os.path.join(djangoSettings.STATIC_DIR, 'pdfs/SingaporeVisa.pdf')
 
 	EmptyForm = PdfFileReader(open(baseLayerPath, "rb"))
 	dataLayer=PdfFileReader(fileBuffer)
