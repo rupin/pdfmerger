@@ -8,8 +8,8 @@ pdfCellYOffset=(19.86/2)-(fontSize/4)
 
 
 def addText(FieldData):
-	fileName='/pdfs/svg_on_canvas.pdf'
-	tempFileSystemPath=djangoSettings.STATIC_ROOT+fileName
+	fileName='svg_on_canvas.pdf'
+	tempFileSystemPath=fileName
 	my_canvas = canvas.Canvas(tempFileSystemPath, pagesize=A4) 
 	lastFieldPage=0
 	for field in FieldData:
