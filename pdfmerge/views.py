@@ -55,7 +55,7 @@ def fillForm(request):
 	fieldData=UserData.objects.all()
 	text=""
 	for field in fieldData:
-		formField=field.formfield.all()
+		formField=field.formfield_set.all()
 		text=text+ " "+ formField
 
 	# pdfData=dataLayerPDF.addText(fieldData)
