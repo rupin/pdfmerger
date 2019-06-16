@@ -51,7 +51,7 @@ def fillForm(request):
 	newField["type"]="block-text"
 	fieldData.append(newField)
 
-	pdfURL=dataLayerPDF.addText(newField)
+	pdfURL=dataLayerPDF.addText(fieldData)
 	htmlResponse= '<a href="'+pdfURL+'" target="_new">'
 
 	return HttpResponse(htmlResponse)
