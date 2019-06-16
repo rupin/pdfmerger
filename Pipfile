@@ -18,7 +18,7 @@ gunicorn = "*"
 "django-storages"= "*"
 "boto3"= "*"
 "django-import-export"="*"
-"reportlab"
-"PyPDF2"
+"reportlab"="*"
+"PyPDF2"="*"
 
 [dev-packages]
