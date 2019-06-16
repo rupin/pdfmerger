@@ -52,16 +52,16 @@ def fillForm(request):
 	# fieldData.append(newField)
 
 
-	fieldData=UserData.objects.select_related('formfield')
+	fieldData=UserData.objects.filter(fk_user_id=1).select_related()
 
-	pdfData=dataLayerPDF.addText(fieldData)
-	#output=dataLayerPDF.mergePDFs()
-	response = HttpResponse(content_type='application/pdf')
-	response['Content-Disposition'] = 'attachment; filename="dataLayer.pdf"'
-	#response.write(PDFBytes)
-	pdfData.write(response)
+	# pdfData=dataLayerPDF.addText(fieldData)
+	# #output=dataLayerPDF.mergePDFs()
+	# response = HttpResponse(content_type='application/pdf')
+	# response['Content-Disposition'] = 'attachment; filename="dataLayer.pdf"'
+	# #response.write(PDFBytes)
+	# pdfData.write(response)
 	
-	return response
+	return fieldData
 	# context = {
  #        'pdfURL': pdfURL,
  #    }
