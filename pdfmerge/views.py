@@ -51,11 +51,11 @@ def fillForm(request):
 	newField["type"]="block-text"
 	fieldData.append(newField)
 
-	PDFBufferData=dataLayerPDF.addText(fieldData)
-	output=dataLayerPDF.mergePDFs(PDFBufferData)
+	PDFBytes=dataLayerPDF.addText(fieldData)
+	output=dataLayerPDF.mergePDFs()
 	response = HttpResponse(content_type='application/pdf')
 	response['Content-Disposition'] = 'attachment; filename="dataLayer.pdf"'
-	response.write(output)
+	response.write(PDFBytes)
 
 	
 	return response

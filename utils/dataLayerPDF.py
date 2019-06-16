@@ -50,26 +50,21 @@ def addText(FieldData):
 	my_canvas.save()
 	pdf = buffer.getvalue()
 	
-	temporarylocation="datalayer.pdf"
-	with open(temporarylocation, "wb") as outfile:
-		copy_filelike_to_filelike(buffer, outfile)
-	buffer.close()
-	return pdf
+	# temporarylocation="datalayer.pdf"
+	# with open(temporarylocation, "wb") as outfile:
+	# 	copy_filelike_to_filelike(buffer, outfile)
+	# buffer.close()
+	# return pdf
 	#buffer.close()
+
+
+
+	baseLayerPath=os.path.join(djangoSettings.STATIC_DIR, 'pdfs/SingaporeVisa.pdf')	
 	
-def mergePDFs(fileBuffer):
-	#formPages=["form1.pdf", "svg_on_canvas.pdf"] #Singapore Visa
-	#formPages=["Spain Visa.pdf", "svg_on_canvas.pdf"] # spain Visa
-	#buffer = BytesIO()
-	baseLayerPath=os.path.join(djangoSettings.STATIC_DIR, 'pdfs/SingaporeVisa.pdf')
 
 	
-	#with open(temporarylocation,'wb') as out: ## Open temporary file as bytes
-	#	out.write(fileBuffer.getvalue())                ## Read bytes into file
-
-	temporarylocation="datalayer.pdf"
 	EmptyForm = PdfFileReader(open(baseLayerPath, "rb"))
-	dataLayer=PdfFileReader(open(temporarylocation, "rb"))
+	dataLayer=PdfFileReader(pdf)
 	emptyFormPageCount=EmptyForm.getNumPages()
 	dataLayerPagecount=dataLayer.getNumPages()
 	output = PdfFileWriter()
@@ -86,3 +81,4 @@ def mergePDFs(fileBuffer):
 
 
 	return 	output
+	
