@@ -40,27 +40,27 @@ def addText(FieldData):
 	buffer.close()
 	return pdf
 	
-# def mergePDFs(fileName)
-# 	#formPages=["form1.pdf", "svg_on_canvas.pdf"] #Singapore Visa
-# 	#formPages=["Spain Visa.pdf", "svg_on_canvas.pdf"] # spain Visa
-# 	baseLayerPath=djangoSettings.STATIC_URL + "/pdfs/SingaporeVisa.pdf"
+def mergePDFs(fileBuffer)
+	#formPages=["form1.pdf", "svg_on_canvas.pdf"] #Singapore Visa
+	#formPages=["Spain Visa.pdf", "svg_on_canvas.pdf"] # spain Visa
+	#buffer = BytesIO()
+	baseLayerPath=djangoSettings.STATIC_URL + "/pdfs/SingaporeVisa.pdf"
 
-# 	EmptyForm = PdfFileReader(open(baseLayerPath, "rb"))
-# 	dataLayer=PdfFileReader(open(fileName, "rb"))
-# 	emptyFormPageCount=EmptyForm.getNumPages()
-# 	dataLayerPagecount=dataLayer.getNumPages()
-# 	output = PdfFileWriter()
-# 	if(emptyFormPageCount>=dataLayerPagecount):
-# 		for pageIndex in range(0,dataLayerPagecount):
-# 			dataPage=dataLayer.getPage(pageIndex)
-# 			formPage=EmptyForm.getPage(pageIndex)
-# 			formPage.mergePage(dataPage)
-# 			output.addPage(formPage)
+	EmptyForm = PdfFileReader(open(baseLayerPath, "rb"))
+	dataLayer=PdfFileReader(fileBuffer)
+	emptyFormPageCount=EmptyForm.getNumPages()
+	dataLayerPagecount=dataLayer.getNumPages()
+	output = PdfFileWriter()
+	if(emptyFormPageCount>=dataLayerPagecount):
+		for pageIndex in range(0,dataLayerPagecount):
+			dataPage=dataLayer.getPage(pageIndex)
+			formPage=EmptyForm.getPage(pageIndex)
+			formPage.mergePage(dataPage)
+			output.addPage(formPage)
 
-# 		for emptyPagesIndex in range(dataLayerPagecount, emptyFormPageCount):
-# 				formPage=EmptyForm.getPage(emptyPagesIndex)
-# 				output.addPage(formPage)
+		for emptyPagesIndex in range(dataLayerPagecount, emptyFormPageCount):
+				formPage=EmptyForm.getPage(emptyPagesIndex)
+				output.addPage(formPage)
 
 
-# 	with open("join.pdf", "wb") as outputStream:
-# 	output.write(outputStream)		
+	return 	output
