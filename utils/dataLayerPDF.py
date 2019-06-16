@@ -57,7 +57,7 @@ def mergePDFs(fileBuffer):
 
 
 	EmptyForm = PdfFileReader(open(baseLayerPath, "rb"))
-	dataLayer=PdfFileReader(datalayer.pdf)
+	dataLayer=PdfFileReader(open("datalayer.pdf", "rb"))
 	emptyFormPageCount=EmptyForm.getNumPages()
 	dataLayerPagecount=dataLayer.getNumPages()
 	output = PdfFileWriter()
