@@ -12,6 +12,13 @@ fontSize=15
 pdfCellXOffset=(16.9/2)-(fontSize/4)
 pdfCellYOffset=(19.86/2)-(fontSize/4)
 
+def copy_filelike_to_filelike(src, dst, bufsize=16384):
+	while True:
+		buf = src.read(bufsize)
+		if not buf:
+			break
+		dst.write(buf)
+
 
 def addText(FieldData):
 	fileName='svg_on_canvas.pdf'
@@ -42,8 +49,13 @@ def addText(FieldData):
 	
 	my_canvas.save()
 	pdf = buffer.getvalue()
-	buffer.close()
-	return buffer
+	
+	temporarylocation="datalayer.pdf"
+	with open(temporarylocation, "wb") as outfile:
+    	copy_filelike_to_filelike(buffer, outfile)
+    buffer.close()
+	return pdf
+	#buffer.close()
 	
 def mergePDFs(fileBuffer):
 	#formPages=["form1.pdf", "svg_on_canvas.pdf"] #Singapore Visa
@@ -51,13 +63,13 @@ def mergePDFs(fileBuffer):
 	#buffer = BytesIO()
 	baseLayerPath=os.path.join(djangoSettings.STATIC_DIR, 'pdfs/SingaporeVisa.pdf')
 
-	temporarylocation="datalayer.pdf"
+	
 	#with open(temporarylocation,'wb') as out: ## Open temporary file as bytes
 	#	out.write(fileBuffer.getvalue())                ## Read bytes into file
 
-
+	temporarylocation="datalayer.pdf"
 	EmptyForm = PdfFileReader(open(baseLayerPath, "rb"))
-	dataLayer=PdfFileReader(fileBuffer)
+	dataLayer=PdfFileReader(open(temporarylocation, "rb"))
 	emptyFormPageCount=EmptyForm.getNumPages()
 	dataLayerPagecount=dataLayer.getNumPages()
 	output = PdfFileWriter()
