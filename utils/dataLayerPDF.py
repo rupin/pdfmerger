@@ -23,7 +23,8 @@ def addText(FieldData):
 		for letter in fieldText:
 			textobject = my_canvas.beginText()
 			textobject.setFont('Courier', fontSize)
-			xPos=field["x"]+(letterCount*field["h-inc"])
+			xPos=field["x"]+(letterCount*field["h-inc"]) +pdfCellXOffset
+			yPos=field["y"] + pdfCellYOffset
 			textobject.setTextOrigin(xPos, field["y"])
 			#textobject.setCharSpace(10.1)
 			textobject.textLine(letter)

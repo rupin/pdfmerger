@@ -34,8 +34,8 @@ def loginUser(request):
 def fillForm(request):
 	newField={}
 	fieldData=[] 
-	newField["x"]=137+pdfCellXOffset
-	newField["y"]=676+pdfCellYOffset
+	newField["x"]=137
+	newField["y"]=676
 	newField["text"]="Rupin Raghavji Chheda"
 	newField["h-inc"]=17
 	newField["page"]=0
@@ -43,8 +43,8 @@ def fillForm(request):
 	fieldData.append(newField)
 
 	newField={}
-	newField["x"]=135+pdfCellXOffset
-	newField["y"]=494+pdfCellYOffset
+	newField["x"]=135
+	newField["y"]=494
 	newField["text"]="India"
 	newField["h-inc"]=17
 	newField["page"]=0
