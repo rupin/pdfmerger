@@ -79,6 +79,8 @@ def addText(FieldData):
 				formPage=EmptyForm.getPage(emptyPagesIndex)
 				output.addPage(formPage)
 
+	return output			
+	# with open("join.pdf", "wb") as outputStream:
+	# 	output.write(outputStream)
+	# return "join.pdf"
 
-	return 	output
-	
