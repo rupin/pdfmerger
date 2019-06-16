@@ -20,11 +20,13 @@ class FormField(models.Model):
 	field_x=models.DecimalField(max_digits=6,decimal_places=2,default=0)
 	field_y=models.DecimalField(max_digits=6,decimal_places=2,default=0)
 	field_x_increment=models.DecimalField(max_digits=6,decimal_places=2,default=0)
+	class Meta:
+		ordering= ("field_page_number", "field_type")
 	
 class UserData(models.Model):
 	#pass	
 	fk_user_id=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,default=0)
-	field_type=models.ManyToManyField(FormField, default=0)
+	field_type=models.ManyToManyField(FormField, default=0, related_name='formfield')
 	field_text=models.CharField(max_length=200,default='')
 	
 	
