@@ -52,8 +52,8 @@ def addText(FieldData):
 	
 	temporarylocation="datalayer.pdf"
 	with open(temporarylocation, "wb") as outfile:
-    	copy_filelike_to_filelike(buffer, outfile)
-    buffer.close()
+		copy_filelike_to_filelike(buffer, outfile)
+	buffer.close()
 	return pdf
 	#buffer.close()
 	
