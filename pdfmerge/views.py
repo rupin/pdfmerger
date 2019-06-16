@@ -3,7 +3,7 @@ from django.template import loader
 from .models import *
 from django.conf import settings
 from django.shortcuts import redirect
-from utils.dataLayerPDF import dataLayer
+from utils import dataLayerPDF
 
 def getUsers(request):
     users = CustomUser.objects.all()
@@ -51,7 +51,7 @@ def fillForm(request):
 	newField["type"]="block-text"
 	fieldData.append(newField)
 
-	pdfURL=dataLayer.addText(newField)
+	pdfURL=dataLayerPDF.addText(newField)
 	htmlResponse= '<a href="'+pdfURL+'" target="_new">'
 
 	return HttpResponse(htmlResponse)
