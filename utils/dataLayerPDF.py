@@ -40,7 +40,7 @@ def addText(FieldData):
 	buffer.close()
 	return pdf
 	
-def mergePDFs(fileBuffer)
+def mergePDFs(fileBuffer):
 	#formPages=["form1.pdf", "svg_on_canvas.pdf"] #Singapore Visa
 	#formPages=["Spain Visa.pdf", "svg_on_canvas.pdf"] # spain Visa
 	#buffer = BytesIO()
