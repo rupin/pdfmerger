@@ -52,8 +52,12 @@ def fillForm(request):
 	fieldData.append(newField)
 
 	pdfURL=dataLayerPDF.addText(fieldData)
-	context = {
-        'pdfURL': pdfURL,
-    }
-	template = loader.get_template('pdf.html')
-	return HttpResponse(template.render(context, request))
+
+	response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="'+pdfURL+'"'
+    return response
+	# context = {
+ #        'pdfURL': pdfURL,
+ #    }
+	# template = loader.get_template('pdf.html')
+	# return HttpResponse(template.render(context, request))

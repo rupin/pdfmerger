@@ -34,6 +34,9 @@ def addText(FieldData):
 
 	my_canvas.save()
 
+	
+    #return 
+
 	return fileName
 	
 		
