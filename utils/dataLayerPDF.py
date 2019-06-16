@@ -46,7 +46,7 @@ def mergePDFs(fileBuffer):
 	#formPages=["form1.pdf", "svg_on_canvas.pdf"] #Singapore Visa
 	#formPages=["Spain Visa.pdf", "svg_on_canvas.pdf"] # spain Visa
 	#buffer = BytesIO()
-	baseLayerPath=djangoSettings.STATIC_URL + "/pdfs/SingaporeVisa.pdf"
+	baseLayerPath=djangoSettings.STATIC_URL + "pdfs/SingaporeVisa.pdf"
 
 	EmptyForm = PdfFileReader(open(baseLayerPath, "rb"))
 	dataLayer=PdfFileReader(fileBuffer)
