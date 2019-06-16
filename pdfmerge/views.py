@@ -52,11 +52,8 @@ def fillForm(request):
 	# fieldData.append(newField)
 
 
-	fieldData=UserData.objects.all()
-	text=""
-	for field in fieldData:
-		formField=field.formfield_set.all()
-		text=text+ " "+ formField
+	fieldData=UserData.objects.all().formfield_set.all()
+	
 
 	# pdfData=dataLayerPDF.addText(fieldData)
 	# #output=dataLayerPDF.mergePDFs()
