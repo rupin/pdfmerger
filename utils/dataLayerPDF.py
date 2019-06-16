@@ -1,6 +1,6 @@
 from reportlab.graphics import renderPDF
 from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import letter, A4
+from reportlab.lib.pagesizes import A4
 from django.conf import settings as djangoSettings
 from io import BytesIO
 from PyPDF2 import PdfFileReader,PdfFileWriter
