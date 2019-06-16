@@ -62,7 +62,7 @@ def fillForm(request):
 	# #response.write(PDFBytes)
 	# pdfData.write(response)
 	
-	return fieldData
-	 context = {'fieldData': fieldData,}
+	#return fieldData
+	context = {'fieldData': fieldData,}
 	template = loader.get_template('pdf.html')
 	return HttpResponse(template.render(context, request))
