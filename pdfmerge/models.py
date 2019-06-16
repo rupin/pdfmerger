@@ -10,9 +10,7 @@ class PDFForm(models.Model):
 	pdf_id=models.AutoField(primary_key=True)
 	pdf_type=models.IntegerField()
 	pdf_name=models.CharField(max_length=100)
-	file_path=models.FileField()
-	
-	
+	file_path=models.FileField()	
 
 class FormField(models.Model):	
 	field_id=models.AutoField(primary_key=True)
@@ -21,6 +19,7 @@ class FormField(models.Model):
 	field_page_number=models.IntegerField()
 	field_x=models.DecimalField(max_digits=6,decimal_places=2)
 	field_y=models.DecimalField(max_digits=6,decimal_places=2)
+	field_x_increment=models.DecimalField(max_digits=6,decimal_places=2)
 	
 class UserData(models.Model):
 	

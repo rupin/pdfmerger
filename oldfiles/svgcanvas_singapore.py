@@ -3,7 +3,7 @@
 from reportlab.graphics import renderPDF
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter, A4
-fontSize=12
+fontSize=15
 pdfCellXOffset=(16.9/2)-(fontSize/4)
 pdfCellYOffset=(19.86/2)-(fontSize/4)
  
@@ -63,7 +63,6 @@ if __name__ == '__main__':
 	newField["page"]=0
 	newField["type"]="block-text-date"
 	fieldData.append(newField)
-
 	
 
 	newField={}
@@ -194,9 +193,6 @@ if __name__ == '__main__':
 	fieldData.append(newField)
 
 
-	
-
-
 	newField={}
 	newField["x"]=99.9+pdfCellXOffset
 	newField["y"]=751+pdfCellYOffset
@@ -286,14 +282,6 @@ if __name__ == '__main__':
 	newField["page"]=1
 	newField["type"]="free-text"
 	fieldData.append(newField)
-
-
-
-	
-
-
-
-
 
 	
 	#print(fieldData) 
