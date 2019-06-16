@@ -7,24 +7,24 @@ class CustomUser(AbstractUser):
     # add additional fields in here
 
 class PDFForm(models.Model):
-	pass	
-	# pdf_type=models.IntegerField()
-	# pdf_name=models.CharField(max_length=100)
-	# file_path=models.FileField()	
+	#pass	
+	pdf_type=models.IntegerField(default=0)
+	pdf_name=models.CharField(max_length=100,default='')
+	file_path=models.FileField(default='')	
 
 class FormField(models.Model):
-	pass	
-	# pdf_id=models.ForeignKey('PDFForm', on_delete=models.CASCADE)
-	# field_type=models.IntegerField()
-	# field_page_number=models.IntegerField()
-	# field_x=models.DecimalField(max_digits=6,decimal_places=2)
-	# field_y=models.DecimalField(max_digits=6,decimal_places=2)
-	# field_x_increment=models.DecimalField(max_digits=6,decimal_places=2)
+	#pass	
+	fk_pdf_id=models.ForeignKey('PDFForm', on_delete=models.CASCADE,default=0)
+	field_type=models.IntegerField(default=0)
+	field_page_number=models.IntegerField(default=0)
+	field_x=models.DecimalField(max_digits=6,decimal_places=2,default=0)
+	field_y=models.DecimalField(max_digits=6,decimal_places=2,default=0)
+	field_x_increment=models.DecimalField(max_digits=6,decimal_places=2,default=0)
 	
 class UserData(models.Model):
-	pass	
-	# user_id=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-	# field_type=models.IntegerField()
-	# field_text=models.CharField(max_length=200)
+	#pass	
+	fk_user_id=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,default=0)
+	field_type=models.IntegerField(default=0)
+	field_text=models.CharField(max_length=200,default='')
 	
 	
