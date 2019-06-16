@@ -13,9 +13,9 @@ def addText(FieldData):
 	lastFieldPage=0
 	for field in FieldData:
 		#print(field)
-		fieldText=field["text"].upper()
+		fieldText=field.get("text").upper()
 		letterCount=0
-		currentPage=field["page"]
+		currentPage=field.get("text")
 		if(currentPage==lastFieldPage+1):
 			lastFieldPage=currentPage
 			my_canvas.showPage()# change to next page 
@@ -23,9 +23,9 @@ def addText(FieldData):
 		for letter in fieldText:
 			textobject = my_canvas.beginText()
 			textobject.setFont('Courier', fontSize)
-			xPos=field["x"]+(letterCount*field["h-inc"]) +pdfCellXOffset
-			yPos=field["y"] + pdfCellYOffset
-			textobject.setTextOrigin(xPos, field["y"])
+			xPos=field.get("x")+(letterCount*field.get("h-inc")) +pdfCellXOffset
+			yPos=field.get("y") + pdfCellYOffset
+			textobject.setTextOrigin(xPos, yPos)
 			#textobject.setCharSpace(10.1)
 			textobject.textLine(letter)
 			my_canvas.drawText(textobject)
