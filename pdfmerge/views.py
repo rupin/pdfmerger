@@ -52,7 +52,11 @@ def fillForm(request):
 	# fieldData.append(newField)
 
 
-	fieldData=UserData.objects.filter(fk_user_id=1).select_related()
+	fieldData=UserData.objects.all()
+	text=""
+	for field in fieldData:
+		formField=field.formfield.all()
+		text=text+ " "+ formField
 
 	# pdfData=dataLayerPDF.addText(fieldData)
 	# #output=dataLayerPDF.mergePDFs()
