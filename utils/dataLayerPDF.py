@@ -52,12 +52,12 @@ def mergePDFs(fileBuffer):
 	baseLayerPath=os.path.join(djangoSettings.STATIC_DIR, 'pdfs/SingaporeVisa.pdf')
 
 	temporarylocation="datalayer.pdf"
-	with open(temporarylocation,'wb') as out: ## Open temporary file as bytes
-		out.write(fileBuffer.getvalue())                ## Read bytes into file
+	#with open(temporarylocation,'wb') as out: ## Open temporary file as bytes
+	#	out.write(fileBuffer.getvalue())                ## Read bytes into file
 
 
 	EmptyForm = PdfFileReader(open(baseLayerPath, "rb"))
-	dataLayer=PdfFileReader(open("datalayer.pdf", "rb"))
+	dataLayer=PdfFileReader(fileBuffer)
 	emptyFormPageCount=EmptyForm.getNumPages()
 	dataLayerPagecount=dataLayer.getNumPages()
 	output = PdfFileWriter()
