@@ -64,7 +64,7 @@ def addText(FieldData):
 
 	
 	EmptyForm = PdfFileReader(open(baseLayerPath, "rb"))
-	dataLayer=PdfFileReader(pdf)
+	dataLayer=PdfFileReader(buffer)
 	emptyFormPageCount=EmptyForm.getNumPages()
 	dataLayerPagecount=dataLayer.getNumPages()
 	output = PdfFileWriter()
