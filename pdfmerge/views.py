@@ -52,9 +52,7 @@ def fillForm(request):
 	# fieldData.append(newField)
 
 	Queryset_FormFieldData=FormField.objects.filter(fk_pdf_id=1)
-
-
-	Queryset_UserData=UserData.objects.filter(fk_user_id=1)
+	Queryset_UserData=UserData.objects.filter(fk_user_id=1).filter(field_type=1)
 
 	
 
