@@ -51,8 +51,11 @@ def fillForm(request):
 	# newField["type"]="block-text"
 	# fieldData.append(newField)
 
+	FormFieldData=FormField.objects.filter(fk_pdf_id=1)
 
-	fieldData=UserData.objects.filter(fk_user_id=1).formfield.all()
+
+	UserData=UserData.objects.filter(fk_user_id=1)
+
 	
 
 	# pdfData=dataLayerPDF.addText(fieldData)
@@ -63,6 +66,6 @@ def fillForm(request):
 	# pdfData.write(response)
 	
 	#return fieldData
-	context = {'fieldData': fieldData,}
+	context = {'UserData': UserData,}
 	template = loader.get_template('pdf.html')
 	return HttpResponse(template.render(context, request))

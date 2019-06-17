@@ -28,7 +28,7 @@ class UserData(models.Model):
 	fk_user_id=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,default=0)
 	field_type=models.IntegerField(default=0)
 	field_text=models.CharField(max_length=200,default='')
-	field_data=models.DateField()
+	field_date=models.DateField()
 
 	
 
