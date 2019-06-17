@@ -51,9 +51,15 @@ def fillForm(request):
 	# newField["type"]="block-text"
 	# fieldData.append(newField)
 
-	Queryset_FormFieldData=FormField.objects.filter(fk_pdf_id=1)
-	Queryset_UserData=UserData.objects.filter(fk_user_id=1).filter(field_type=1)
-
+	#Queryset_FormFieldData=
+	#Queryset_UserData=UserData.objects.filter(fk_user_id=1).filter(field_type=1)
+	connection = (
+		'FormField',
+		'UserData',
+	'field_type',
+	'field_type',
+	)
+	Queryset_FormFieldData=FormField.objects.filter(fk_pdf_id=1).query.join(connection, promote=True)
 	
 
 	# pdfData=dataLayerPDF.addText(fieldData)
@@ -64,6 +70,6 @@ def fillForm(request):
 	# pdfData.write(response)
 	
 	#return fieldData
-	context = {'UserData': Queryset_UserData,}
+	context = {'UserData': Queryset_FormFieldData,}
 	template = loader.get_template('pdf.html')
 	return HttpResponse(template.render(context, request))
