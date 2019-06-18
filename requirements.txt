@@ -6,3 +6,4 @@ boto3
 django-import-export
 reportlab
 PyPDF2
+pandas

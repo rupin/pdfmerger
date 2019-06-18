@@ -5,6 +5,7 @@ from django.conf import settings
 from django.shortcuts import redirect
 from utils import dataLayerPDF
 from utils import dprint
+import pandas as pd
 
 def getUsers(request):
     users = CustomUser.objects.all()
@@ -55,18 +56,20 @@ def fillForm(request):
 	userID=1
 	pdfid=1
 
-	queryset=PDFFormField.objects.raw('SELECT * FROM pdfmerge_pdffromfield WHERE pdf = %s', [pdfid])
+	#queryset=PDFFormField.objects.raw('SELECT * FROM pdfmerge_pdffromfield WHERE pdf = %s', [pdfid])
 
 	#get all fields in PDF related to PDFID
 	fieldsinPDF=PDFFormField.objects.filter(pdf=pdfid)
-	fieldIDs=[]
-	for myfield in fieldsinPDF:
-		fieldIDs.append(myfield.field_id)
-	print(fieldIDs)
+	# fieldIDs=[]
+	# for myfield in fieldsinPDF:
+	# 	fieldIDs.append(myfield.field_id)
+	# print(fieldIDs)
 	#get all fields Related to User in UserProfile and that match the fields in the PDFForm
-	userFields=UserProfile.objects.filter(user=userID).filter(field__in=fieldIDs)
-	dprint.dprint(queryset)
+	userFields=UserProfile.objects.filter(user=userID)#.filter(field__in=fieldIDs)
+	#dprint.dprint(queryset)
 
+	userFieldDF=pd.DataFrame.from_records(userFields)
+	PDFFieldsDF=pd.DataFrame.from_records(fieldsinPDF)
 	# pdfData=dataLayerPDF.addText(fieldData)
 	# #output=dataLayerPDF.mergePDFs()
 	# response = HttpResponse(content_type='application/pdf')
