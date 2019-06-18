@@ -59,13 +59,25 @@ def fillForm(request):
 	#queryset=PDFFormField.objects.raw('SELECT * FROM pdfmerge_pdffromfield WHERE pdf = %s', [pdfid])
 
 	#get all fields in PDF related to PDFID
-	fieldsinPDF=PDFFormField.objects.filter(pdf=pdfid).values_list("field","field_x","field_page_number","field_y", "field_x_increment", named=True )
+	fieldsinPDF=PDFFormField.objects.filter(pdf=pdfid).values_list(
+																	"field",
+																	"field_x",
+																	"field_page_number",
+																	"field_y",
+																	"field_x_increment",
+																	 named=True 
+																	 )
 	# fieldIDs=[]
 	# for myfield in fieldsinPDF:
 	# 	fieldIDs.append(myfield.field_id)
 	# print(fieldIDs)
 	#get all fields Related to User in UserProfile and that match the fields in the PDFForm
-	userFields=UserProfile.objects.filter(user=userID).values_list("field", "field_text","field_date", "field__field_type" ,named=True)
+	userFields=UserProfile.objects.filter(user=userID).values_list(
+																	"field", 
+																	
+																	"field__field_type"
+																	,named=True
+																	)
 	#dprint.dprint(queryset)
 
 	userFieldDF=pd.DataFrame(list(userFields)).set_index('field')
@@ -76,8 +88,8 @@ def fillForm(request):
 	# response['Content-Disposition'] = 'attachment; filename="dataLayer.pdf"'
 	# #response.write(PDFBytes)
 	# pdfData.write(response)
-	print(userFieldDF)
-	newDF=userFieldDF.join(PDFFieldsDF, on='field',lsuffix='_left', rsuffix='_right')
+	#print(userFieldDF)
+	combinedDF=userFieldDF.join(PDFFieldsDF, on='field',lsuffix='_left', rsuffix='_right')
 	print(newDF)
 
 	
