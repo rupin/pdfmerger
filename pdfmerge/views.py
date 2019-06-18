@@ -68,8 +68,8 @@ def fillForm(request):
 	userFields=UserProfile.objects.filter(user=userID)#.filter(field__in=fieldIDs)
 	#dprint.dprint(queryset)
 
-	userFieldDF=pd.DataFrame.from_records(userFields)
-	PDFFieldsDF=pd.DataFrame.from_records(fieldsinPDF)
+	userFieldDF=pd.DataFrame(list(userFields))
+	PDFFieldsDF=pd.DataFrame(list(fieldsinPDF))
 	# pdfData=dataLayerPDF.addText(fieldData)
 	# #output=dataLayerPDF.mergePDFs()
 	# response = HttpResponse(content_type='application/pdf')
