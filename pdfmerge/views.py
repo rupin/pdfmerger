@@ -77,8 +77,8 @@ def fillForm(request):
 	# #response.write(PDFBytes)
 	# pdfData.write(response)
 	print(userFieldDF)
-	#newDF=userFieldDF.set_index('field_id').join(PDFFieldsDF.set_index('field_id'))
-	#print(newDF)
+	newDF=userFieldDF.set_index('field').join(PDFFieldsDF.set_index('field'))
+	print(newDF)
 
 	
 	#return fieldData
