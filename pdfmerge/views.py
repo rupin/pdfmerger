@@ -76,8 +76,9 @@ def fillForm(request):
 	# response['Content-Disposition'] = 'attachment; filename="dataLayer.pdf"'
 	# #response.write(PDFBytes)
 	# pdfData.write(response)
-	newDF=userFieldDF.set_index('field_id').join(PDFFieldsDF.set_index('field_id'))
-	print(newDF)
+	print(userFieldDF)
+	#newDF=userFieldDF.set_index('field_id').join(PDFFieldsDF.set_index('field_id'))
+	#print(newDF)
 
 	
 	#return fieldData
