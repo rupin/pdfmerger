@@ -4,6 +4,7 @@ from .models import *
 from django.conf import settings
 from django.shortcuts import redirect
 from utils import dataLayerPDF
+from utils import dprint
 
 def getUsers(request):
     users = CustomUser.objects.all()
@@ -53,7 +54,7 @@ def fillForm(request):
 
 	querysetdata=PDFFormField.objects.all().select_related()
 
-	
+	dprint(querysetdata)
 
 	# pdfData=dataLayerPDF.addText(fieldData)
 	# #output=dataLayerPDF.mergePDFs()
