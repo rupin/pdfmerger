@@ -73,8 +73,7 @@ def fillForm(request):
 	# print(fieldIDs)
 	#get all fields Related to User in UserProfile and that match the fields in the PDFForm
 	userFields=UserProfile.objects.filter(user=userID).values_list(
-																	"field", 
-																	
+																	"field", 																	
 																	"field__field_type"
 																	,named=True
 																	)
@@ -94,6 +93,6 @@ def fillForm(request):
 
 	
 	#return fieldData
-	context = {'UserData': fieldsinPDF,}
+	context = {'UserData': userFields,}
 	template = loader.get_template('pdf.html')
 	return HttpResponse(template.render(context, request))
