@@ -57,10 +57,10 @@ def fillForm(request):
 
 	#get all fields in PDF related to PDFID
 	fieldsinPDF=PDFFormField.objects.filter(pdf=pdfid)
-	fieldIDs=', '.join([str(myfield.field_id) for myfield in fieldsinPDF])
+	fieldIDs=', '.join([myfield.field_id for myfield in fieldsinPDF])
 	print(fieldIDs)
 	#get all fields Related to User in UserProfile
-	userFields=UserProfile.objects.filter(user=userID).filter(field__in=[fieldIDs])
+	userFields=UserProfile.objects.filter(user=userID).filter(field__in=[1,2])
 	dprint.dprint(fieldsinPDF)
 	dprint.dprint(userFields)
 
