@@ -65,7 +65,7 @@ def fillForm(request):
 	# 	fieldIDs.append(myfield.field_id)
 	# print(fieldIDs)
 	#get all fields Related to User in UserProfile and that match the fields in the PDFForm
-	userFields=UserProfile.objects.filter(user=userID).values_list("field", "field_text","field_date", "field__type" ,named=True)
+	userFields=UserProfile.objects.filter(user=userID).values_list("field", "field_text","field_date", "field__field_type" ,named=True)
 	#dprint.dprint(queryset)
 
 	userFieldDF=pd.DataFrame(list(userFields)).set_index('field')
