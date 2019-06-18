@@ -52,7 +52,7 @@ def fillForm(request):
 	# newField["type"]="block-text"
 	# fieldData.append(newField)
 
-	querysetdata=PDFFormField.objects.all().select_related('file_path')
+	querysetdata=PDFFormField.objects.all().select_related('pdf').select_related('field')
 
 	dprint.dprint(querysetdata)
 
