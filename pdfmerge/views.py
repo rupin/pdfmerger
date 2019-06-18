@@ -51,8 +51,7 @@ def fillForm(request):
 	# newField["type"]="block-text"
 	# fieldData.append(newField)
 
-	Queryset_FormFieldData=FormField.objects.filter(fk_pdf_id=1)
-	Queryset_UserData=UserData.objects.filter(fk_user_id=1).filter(field_type=1)
+	querysetdata=PDFFormField.objects.all().select_related()
 
 	
 
@@ -64,6 +63,6 @@ def fillForm(request):
 	# pdfData.write(response)
 	
 	#return fieldData
-	context = {'UserData': Queryset_UserData,}
+	context = {'UserData': querysetdata,}
 	template = loader.get_template('pdf.html')
 	return HttpResponse(template.render(context, request))
