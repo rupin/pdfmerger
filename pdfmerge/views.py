@@ -89,7 +89,7 @@ def fillForm(request):
 	# pdfData.write(response)
 	#print(userFieldDF)
 	combinedDF=userFieldDF.join(PDFFieldsDF, on='field',lsuffix='_left', rsuffix='_right')
-	print(newDF)
+	print(combinedDF)
 
 	
 	#return fieldData
