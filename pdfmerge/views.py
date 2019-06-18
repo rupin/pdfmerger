@@ -77,7 +77,7 @@ def fillForm(request):
 	# #response.write(PDFBytes)
 	# pdfData.write(response)
 	print(userFieldDF)
-	newDF=userFieldDF.join(PDFFieldsDF, on='field', how='left', lsuffix='_user', rsuffix='_pdf')
+	newDF=userFieldDF.join(PDFFieldsDF, on='field')
 	print(newDF)
 
 	
