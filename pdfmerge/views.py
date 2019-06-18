@@ -93,6 +93,6 @@ def fillForm(request):
 
 	
 	#return fieldData
-	context = {'UserData': userFields,}
+	context = {'UserData': combinedDF,}
 	template = loader.get_template('pdf.html')
 	return HttpResponse(template.render(context, request))
