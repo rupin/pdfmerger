@@ -73,7 +73,9 @@ def fillForm(request):
 	# print(fieldIDs)
 	#get all fields Related to User in UserProfile and that match the fields in the PDFForm
 	userFields=UserProfile.objects.filter(user=userID).values_list(
-																	"field", 																	
+																	"field", 
+																	"field_text",
+																	"field_date",
 																	"field__field_type"
 																	,named=True
 																	)
