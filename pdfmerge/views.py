@@ -59,7 +59,7 @@ def fillForm(request):
 	#queryset=PDFFormField.objects.raw('SELECT * FROM pdfmerge_pdffromfield WHERE pdf = %s', [pdfid])
 
 	#get all fields in PDF related to PDFID
-	fieldsinPDF=PDFFormField.objects.filter(pdf=pdfid).values_list("field","field_x","field_page_number","field_y", "field_x_increment" named=True )
+	fieldsinPDF=PDFFormField.objects.filter(pdf=pdfid).values_list("field","field_x","field_page_number","field_y", "field_x_increment", named=True )
 	# fieldIDs=[]
 	# for myfield in fieldsinPDF:
 	# 	fieldIDs.append(myfield.field_id)
