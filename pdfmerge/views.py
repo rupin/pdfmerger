@@ -91,6 +91,7 @@ def fillForm(request):
 	# pdfData.write(response)
 	#print(userFieldDF)
 	combinedDF=userFieldDF.join(PDFFieldsDF, on='field',lsuffix='_left', rsuffix='_right')
+	combinedDF.sort_values(by=['field_page_number']).to_dict('records')
 	print(combinedDF)
 
 	
