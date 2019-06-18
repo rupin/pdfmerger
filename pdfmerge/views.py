@@ -52,9 +52,16 @@ def fillForm(request):
 	# newField["type"]="block-text"
 	# fieldData.append(newField)
 
-	querysetdata=PDFFormField.objects.all().values('pdf__pdf_name',)
+	userID=1
+	pdfid=1
 
-	dprint.dprint(querysetdata)
+	#get all fields in PDF related to PDFID
+	fieldsinPDF=PDFFormField.objects.filter(pdf=pdfid)
+
+	#get all fields Related to User in UserProfile
+	userFields=UserProfile.objects.filter(user=userID)
+	dprint.dprint(fieldsinPDF)
+	dprint.dprint(userFields)
 
 	# pdfData=dataLayerPDF.addText(fieldData)
 	# #output=dataLayerPDF.mergePDFs()
