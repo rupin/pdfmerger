@@ -59,13 +59,13 @@ def fillForm(request):
 	#queryset=PDFFormField.objects.raw('SELECT * FROM pdfmerge_pdffromfield WHERE pdf = %s', [pdfid])
 
 	#get all fields in PDF related to PDFID
-	fieldsinPDF=PDFFormField.objects.filter(pdf=pdfid).values_list("id","field","field_x" )
+	fieldsinPDF=PDFFormField.objects.filter(pdf=pdfid).values_list("id","field","field_x", named=True )
 	# fieldIDs=[]
 	# for myfield in fieldsinPDF:
 	# 	fieldIDs.append(myfield.field_id)
 	# print(fieldIDs)
 	#get all fields Related to User in UserProfile and that match the fields in the PDFForm
-	userFields=UserProfile.objects.filter(user=userID).values_list("id", "field", "field_text")
+	userFields=UserProfile.objects.filter(user=userID).values_list("id", "field", "field_text",named=True)
 	#dprint.dprint(queryset)
 
 	userFieldDF=pd.DataFrame(list(userFields))
