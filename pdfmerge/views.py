@@ -91,11 +91,11 @@ def fillForm(request):
 	# pdfData.write(response)
 	#print(userFieldDF)
 	combinedDF=userFieldDF.join(PDFFieldsDF, on='field',lsuffix='_left', rsuffix='_right')
-	combinedDF.sort_values(by=['field_page_number']).to_dict('records')
-	print(combinedDF)
+	dataSet=combinedDF.sort_values(by=['field_page_number']).to_dict('records')
+	print(dataSet)
 
 	
 	#return fieldData
-	context = {'UserData': combinedDF,}
+	context = {'UserData': dataSet,}
 	template = loader.get_template('pdf.html')
 	return HttpResponse(template.render(context, request))
