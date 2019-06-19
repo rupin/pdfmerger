@@ -56,7 +56,7 @@ def fillForm(request):
 	userID=1
 	pdfid=1
 
-	#queryset=PDFFormField.objects.raw('SELECT * FROM pdfmerge_pdffromfield WHERE pdf = %s', [pdfid])
+	
 
 	#get all fields in PDF related to PDFID
 	fieldsinPDF=PDFFormField.objects.filter(pdf=pdfid).values_list(
@@ -67,10 +67,7 @@ def fillForm(request):
 																	"field_x_increment",
 																	 named=True 
 																	 )
-	# fieldIDs=[]
-	# for myfield in fieldsinPDF:
-	# 	fieldIDs.append(myfield.field_id)
-	# print(fieldIDs)
+	
 	#get all fields Related to User in UserProfile and that match the fields in the PDFForm
 	userFields=UserProfile.objects.filter(user=userID).values_list(
 																	"field", 
@@ -81,20 +78,31 @@ def fillForm(request):
 																	)
 	#dprint.dprint(queryset)
 
+	#Set the column as index on which the join is to be made in pandas
 	userFieldDF=pd.DataFrame(list(userFields)).set_index('field')
 	PDFFieldsDF=pd.DataFrame(list(fieldsinPDF)).set_index('field')
 	
+	#Make the Join
 	combinedDF=userFieldDF.join(PDFFieldsDF, on='field',lsuffix='_left', rsuffix='_right')
+	
+	#sort the Dataframe by Field Page Number, then convert it to a list of dictionaries
 	dataSet=combinedDF.sort_values(by=['field_page_number']).to_dict('records')
-	#print(dataSet)
+	
 
+	#print(dataSet)
+	#Use the dataset as input to generate the pdf, recieve a buffer as reponse 
 	pdfData=dataLayerPDF.addText(dataSet)
 	# #output=dataLayerPDF.mergePDFs()
+	#Set the httpresponse to download a pdf
 	response = HttpResponse(content_type='application/pdf')
 	response['Content-Disposition'] = 'attachment; filename="dataLayer.pdf"'
 	#response.write(PDFBytes)
+
+	#write the pdfdata to the responseobject
 	pdfData.write(response)
 	#print(userFieldDF)
+
+	#return the response 
 	return response
 	
 	#return fieldData
