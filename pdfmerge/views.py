@@ -83,19 +83,21 @@ def fillForm(request):
 
 	userFieldDF=pd.DataFrame(list(userFields)).set_index('field')
 	PDFFieldsDF=pd.DataFrame(list(fieldsinPDF)).set_index('field')
-	# pdfData=dataLayerPDF.addText(fieldData)
-	# #output=dataLayerPDF.mergePDFs()
-	# response = HttpResponse(content_type='application/pdf')
-	# response['Content-Disposition'] = 'attachment; filename="dataLayer.pdf"'
-	# #response.write(PDFBytes)
-	# pdfData.write(response)
-	#print(userFieldDF)
+	
 	combinedDF=userFieldDF.join(PDFFieldsDF, on='field',lsuffix='_left', rsuffix='_right')
 	dataSet=combinedDF.sort_values(by=['field_page_number']).to_dict('records')
 	#print(dataSet)
 
+	pdfData=dataLayerPDF.addText(dataSet)
+	# #output=dataLayerPDF.mergePDFs()
+	response = HttpResponse(content_type='application/pdf')
+	response['Content-Disposition'] = 'attachment; filename="dataLayer.pdf"'
+	#response.write(PDFBytes)
+	pdfData.write(response)
+	#print(userFieldDF)
+
 	
 	#return fieldData
-	context = {'UserData': dataSet,}
-	template = loader.get_template('pdf.html')
-	return HttpResponse(template.render(context, request))
+	#context = {'UserData': dataSet,}
+	#template = loader.get_template('pdf.html')
+	#return HttpResponse(template.render(context, request))
