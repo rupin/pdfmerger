@@ -93,6 +93,8 @@ def fillForm(request):
 	#Use the dataset as input to generate the pdf, recieve a buffer as reponse 
 	pdfData=dataLayerPDF.addText(dataSet)
 	# #output=dataLayerPDF.mergePDFs()
+
+	
 	#Set the httpresponse to download a pdf
 	response = HttpResponse(content_type='application/pdf')
 	response['Content-Disposition'] = 'attachment; filename="dataLayer.pdf"'
