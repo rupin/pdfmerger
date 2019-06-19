@@ -95,7 +95,7 @@ def fillForm(request):
 	#response.write(PDFBytes)
 	pdfData.write(response)
 	#print(userFieldDF)
-
+	return response
 	
 	#return fieldData
 	#context = {'UserData': dataSet,}
