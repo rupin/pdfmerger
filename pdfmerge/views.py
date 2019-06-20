@@ -73,7 +73,7 @@ def fillForm(request):
 																	"field", 
 																	"field_text",
 																	"field_date",																	
-																	,named=True
+																	named=True
 																	)
 	#dprint.dprint(queryset)
 
