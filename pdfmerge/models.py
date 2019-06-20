@@ -18,7 +18,6 @@ class PDFForm(models.Model):
 #Class has reference to every form Field created
 class Field(models.Model):
 	#pass	
-	field_type=models.IntegerField(default=0)
 	field_description=models.CharField(max_length=200,default='')
 	def __str__(self):
 		return self.field_description
@@ -45,7 +44,7 @@ class UserProfile(models.Model):
 	user=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,default=0)
 	field=models.ForeignKey(Field, on_delete=models.CASCADE,default=0)
 	field_text=models.CharField(max_length=200,default='')
-	field_date=models.DateField()
+	field_date=models.DateField(null=True)
 	
 #class has reference to all pdfs users have generated/requested
 class GeneratedPDF(models.Model):
