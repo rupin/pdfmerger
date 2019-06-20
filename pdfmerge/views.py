@@ -89,7 +89,7 @@ def fillForm(request):
 	dataSet=combinedDF.sort_values(by=['field_page_number']).to_dict('records')
 	
 
-	#print(dataSet)
+	print(dataSet)
 	#Use the dataset as input to generate the pdf, recieve a buffer as reponse 
 	pdfData=dataLayerPDF.addText(dataSet)
 	# #output=dataLayerPDF.mergePDFs()
