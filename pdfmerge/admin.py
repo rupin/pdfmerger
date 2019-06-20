@@ -16,7 +16,9 @@ class PDFFormAdmin(admin.ModelAdmin):
 
 class PDFFormFieldAdmin(admin.ModelAdmin):
 	model=PDFFormField
-	list_display = ['pdf__pdf_name', 'field__field_description',]
+	def get_queryset(self, request):
+    	return super(PDFFormFieldAdmin,self).get_queryset(request).select_related('book')
+    
   
 
 admin.site.register(CustomUser, CustomUserAdmin)
