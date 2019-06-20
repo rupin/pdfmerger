@@ -85,7 +85,7 @@ def fillForm(request):
 	#Make the Join
 	combinedDF=userFieldDF.join(PDFFieldsDF, on='field',lsuffix='_left', rsuffix='_right')
 	#remove rows with NA Values. Will happen when the number of rows in the above datasets differ in count. 
-	combinedDF.dropna() 
+	combinedDF.dropna(0,inplace=True)
 	
 	#sort the Dataframe by Field Page Number, then convert it to a list of dictionaries
 	dataSet=combinedDF.sort_values(by=['field_page_number']).to_dict('records')
