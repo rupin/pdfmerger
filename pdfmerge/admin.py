@@ -15,6 +15,7 @@ class PDFFormAdmin(admin.ModelAdmin):
     pass
 
 class PDFFormFieldAdmin(admin.ModelAdmin):
+	model=PDFFormField
 	list_display = ['pdf__pdf_name', 'field__field_description',]
   
 
