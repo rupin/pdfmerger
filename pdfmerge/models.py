@@ -18,6 +18,8 @@ class Field(models.Model):
 	#pass	
 	field_type=models.IntegerField(default=0)
 	field_description=models.CharField(max_length=200,default='')
+	def __str__(self):
+		return self.field_description
 	
 	
 #class relates form field id with PDF ID, a pdf can have multiple fields of same kind. 
