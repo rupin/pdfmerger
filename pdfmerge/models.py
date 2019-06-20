@@ -45,6 +45,8 @@ class UserProfile(models.Model):
 	field=models.ForeignKey(Field, on_delete=models.CASCADE,default=0)
 	field_text=models.CharField(max_length=200,default='')
 	field_date=models.DateField(null=True)
+	class Meta:
+		unique_together = ('user', 'field',)
 	
 #class has reference to all pdfs users have generated/requested
 class GeneratedPDF(models.Model):
