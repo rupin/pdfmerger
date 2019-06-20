@@ -18,10 +18,10 @@ class PDFFormFieldAdmin(admin.ModelAdmin):
 	model=PDFFormField
 	list_display=['getPDFFormName', "getFieldDescription"]
 	def getPDFFormName(self, request):
-		return super(PDFFormFieldAdmin,self).get_queryset(request).select_related('PDFForm')
+		return super(PDFFormFieldAdmin,self).get_queryset(request).select_related('pdf')
 
 	def getFieldDescription(self, request):
-		return super(PDFFormFieldAdmin,self).get_queryset(request).select_related('Field')
+		return super(PDFFormFieldAdmin,self).get_queryset(request).select_related('field')
 
     	
     
