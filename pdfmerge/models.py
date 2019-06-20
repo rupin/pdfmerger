@@ -17,6 +17,7 @@ class PDFForm(models.Model):
 class Field(models.Model):
 	#pass	
 	field_type=models.IntegerField(default=0)
+	field_description=models.CharField(max_length=200,default='')
 	
 	
 #class relates form field id with PDF ID, a pdf can have multiple fields of same kind. 
