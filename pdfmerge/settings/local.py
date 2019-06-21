@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'pdfmerge.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-DEBUG = os.environ.get('DEBUG', default=False)
+
 DATABASES = {
     'default': dj_database_url.config(
         default=os.environ.get('DATABASE_URL')
