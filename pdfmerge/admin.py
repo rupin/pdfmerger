@@ -12,14 +12,14 @@ class CustomUserAdmin(UserAdmin):
     model = CustomUser
     list_display = ['email', 'username',]
 	
-class PDFFormAdmin(admin.ImportExportModelAdmin):
+class PDFFormAdmin(ImportExportModelAdmin):
     pass
 
-class PDFFormFieldAdmin(admin.ImportExportModelAdmin):
+class PDFFormFieldAdmin(ImportExportModelAdmin):
 	model=PDFFormField
 	list_display=['pdf', "field"]
 
-class UserProfileAdmin(admin.ImportExportModelAdmin):
+class UserProfileAdmin(ImportExportModelAdmin):
 	model=UserProfile
 	list_display=['user', "field", "field_text", "field_date"]
 
