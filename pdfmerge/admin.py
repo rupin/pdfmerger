@@ -23,6 +23,10 @@ class UserProfileAdmin(ImportExportModelAdmin):
 	model=UserProfile
 	list_display=['user', "field", "field_text", "field_date"]
 
+class FieldAdmin(ImportExportModelAdmin):
+    model=Field
+    list_display=['id', "field_description",]
+
 
     	
     
