@@ -34,7 +34,7 @@ class FieldAdmin(ImportExportModelAdmin):
 
 admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(PDFForm)
-admin.site.register(Field)
+admin.site.register(Field,FieldAdmin)
 admin.site.register(PDFFormField,PDFFormFieldAdmin)
 
 admin.site.register(UserProfile,UserProfileAdmin)
