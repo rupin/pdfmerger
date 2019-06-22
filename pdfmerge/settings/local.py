@@ -27,6 +27,10 @@ SECRET_KEY = "w+1*!qiejv4x79k3wq)$k%q$0mpp+)6*ca7b88^$o%_)&(th-$"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
+SECURE_SSL_REDIRECT = False
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -82,9 +86,14 @@ WSGI_APPLICATION = 'pdfmerge.wsgi.application'
 
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL')
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'pdfmerge',                      
+        'USER': 'pdfmergeuser',
+        'PASSWORD': 'pdfmergeuser',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
 }
 
 

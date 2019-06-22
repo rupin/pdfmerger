@@ -1,3 +1,4 @@
+from import_export.admin import ImportExportModelAdmin
 from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
@@ -11,14 +12,14 @@ class CustomUserAdmin(UserAdmin):
     model = CustomUser
     list_display = ['email', 'username',]
 	
-class PDFFormAdmin(admin.ModelAdmin):
+class PDFFormAdmin(admin.ImportExportModelAdmin):
     pass
 
-class PDFFormFieldAdmin(admin.ModelAdmin):
+class PDFFormFieldAdmin(admin.ImportExportModelAdmin):
 	model=PDFFormField
 	list_display=['pdf', "field"]
 
-class UserProfileAdmin(admin.ModelAdmin):
+class UserProfileAdmin(admin.ImportExportModelAdmin):
 	model=UserProfile
 	list_display=['user', "field", "field_text", "field_date"]
 
