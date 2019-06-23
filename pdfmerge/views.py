@@ -39,8 +39,8 @@ def fillForm(request):
 	userID=1
 	pdfid=1
 
-	
-
+	#get details about the form
+	formData=PDFForm.objects.get(id=pdfid)
 	#get all fields in PDF related to PDFID
 	fieldsinPDF=PDFFormField.objects.filter(pdf=pdfid).values_list(
 																	"field",
@@ -48,6 +48,8 @@ def fillForm(request):
 																	"field_page_number",
 																	"field_y",
 																	"field_x_increment",
+																	"field_choice",
+																	"font_size",
 																	 named=True 
 																	 )
 	
@@ -61,6 +63,7 @@ def fillForm(request):
 	#dprint.dprint(queryset)
 
 	#Set the column as index on which the join is to be made in pandas
+	#print(userFields)
 	userFieldDF=pd.DataFrame(list(userFields)).set_index('field')
 	PDFFieldsDF=pd.DataFrame(list(fieldsinPDF)).set_index('field')
 	
@@ -73,9 +76,9 @@ def fillForm(request):
 	dataSet=combinedDF.sort_values(by=['field_page_number']).to_dict('records')
 	
 
-	print(dataSet)
+	#print(dataSet)
 	#Use the dataset as input to generate the pdf, recieve a buffer as reponse 
-	pdfData=dataLayerPDF.addText(dataSet)
+	pdfData=dataLayerPDF.addText(dataSet,formData)
 	# #output=dataLayerPDF.mergePDFs()
 
 	

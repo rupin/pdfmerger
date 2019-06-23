@@ -12,6 +12,8 @@ class PDFForm(models.Model):
 	pdf_type=models.IntegerField(default=0)
 	pdf_name=models.CharField(max_length=100,default='')
 	file_path=models.FileField(default='')
+	cellSize_X=models.DecimalField(max_digits=6,decimal_places=2,default=0)
+	cellSize_Y=models.DecimalField(max_digits=6,decimal_places=2,default=0)
 	def __str__(self):
 		return self.pdf_name
 
@@ -32,6 +34,20 @@ class PDFFormField(models.Model):
 	field_x=models.DecimalField(max_digits=6,decimal_places=2,default=0)
 	field_y=models.DecimalField(max_digits=6,decimal_places=2,default=0)
 	field_x_increment=models.DecimalField(max_digits=6,decimal_places=2,default=0)
+	font_size=models.IntegerField(default=12)
+
+	FIELD_CHOICES = (
+						('NONE', 'NONE'),
+						("FULLDATE", "FULLDATE"),
+						("DATE", "DATE"),
+						("MONTH", "MONTH"),
+						("YEAR", "YEAR"),
+						('FULLDATE_TEXT_MONTH','FULLDATE_TEXT_MONTH'),
+						('CHECK_BOX','CHECK_BOX')
+					)
+	field_choice = models.CharField(max_length=20,choices=FIELD_CHOICES,default="NONE")
+    
+
 	class Meta:
 		ordering= ("field_page_number",)
 
