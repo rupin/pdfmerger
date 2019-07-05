@@ -1,0 +1,15 @@
+      <form action="/loginForm/" method="post" role="form" class="contactForm">
+			  {% csrf_token %}
+                <div class="form-group">
+                  <input type="text" id="username" autocomplete="username" name="username"  placeholder="Username" class="form-control"  placeholder="User Name or Email" />
+                  <div class="validation"></div>
+                </div>
+                <div class="form-group">
+                  <input type="password" name="password" autocomplete="current-password" id="password" placeholder="Password" class="form-control"  />
+                  <div class="validation"></div>
+                </div>
+                
+                
+
+                <div class="text-center"><input type="submit" title="Login" value="Login"></input></div>
+              </form>

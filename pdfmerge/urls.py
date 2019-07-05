@@ -25,6 +25,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 	path('', views.getUsers, name='home'),
 	path('login/', views.loginForm, name='login'),
-	path('loginForm/', views.loginUser, name='loginsubmit'),
-    path('viewPDF/', views.fillForm, name='fillform')
+    path('logout/', views.logoutUser, name='logout'),
+	path('loginAuth/', views.loginUser, name='loginsubmit'),
+    path('viewPDF/', views.fillForm, name='fillform'),
+    path('systemForms/', views.viewSystemForms, name='systemForms')
 ]

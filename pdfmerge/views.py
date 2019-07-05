@@ -6,10 +6,12 @@ from django.shortcuts import redirect
 from utils import dataLayerPDF
 from utils import dprint
 import pandas as pd
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 def getUsers(request):
     users = CustomUser.objects.all()
-    template = loader.get_template('index.html')
+    template = loader.get_template('base.html')
     context = {
         'userList': users,
     }
@@ -27,11 +29,27 @@ def loginUser(request):
 	username = request.POST['username']
 	password = request.POST['password']
 	user = authenticate(request, username=username, password=password)
+	print(user.id)
 	if user is not None:
 		login(request, user)
+		return redirect('systemForms')
 		
 	else:
 		return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
+
+
+@login_required
+def viewSystemForms(request):
+	pdfforms=PDFForm.objects.all()
+	context = {
+		'systemforms':pdfforms ,
+	}
+	template = loader.get_template('formsList.html')
+	return HttpResponse(template.render(context, request))
+
+def logoutUser(request):
+	logout(request)
+	return redirect('login')
 
 def fillForm(request):
 	

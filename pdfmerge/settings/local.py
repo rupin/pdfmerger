@@ -160,7 +160,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 #AWS_DEFAULT_ACL=os.environ.get("AWS_DEFAULT_ACL")
 #AWS_AUTO_CREATE_BUCKET =True
 #AWS_S3_REGION_NAME =os.environ.get("AWS_S3_REGION_NAME")
-LOGIN_URL = 'pdfmerge.views.loginForm'
+LOGIN_URL = '/login/'
 IMPORT_EXPORT_USE_TRANSACTIONS = True
 # Activate Django-Heroku.
 django_heroku.settings(locals())

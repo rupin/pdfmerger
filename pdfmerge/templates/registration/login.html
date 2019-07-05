@@ -109,7 +109,7 @@
           <div class="form">
               
               <h4>Login</h4>
-              <form action="/login/" method="post" role="form" class="contactForm">
+              <form action="/loginAuth/" method="post" role="form" class="contactForm">
 			  {% csrf_token %}
                 <div class="form-group">
                   <input type="text" id="username" autocomplete="username" name="username"  placeholder="Username" class="form-control"  placeholder="User Name or Email" />
@@ -161,7 +161,7 @@
   <script src="{% static 'lib/isotope/isotope.pkgd.min.js' %}"></script>
   <script src="{% static 'lib/lightbox/js/lightbox.min.js' %}"></script>
   <!-- Contact Form JavaScript File -->
-  <script src="{% static 'contactform/contactform.js'%}"></script>
+  
 
   <!-- Template Main Javascript File -->
   <script src="{% static 'js/main.js' %}"></script>
