@@ -72,14 +72,15 @@ def logoutUser(request):
 	logout(request)
 	return redirect('login')
 
-def fillForm(request):
-	
+@login_required
+def fillForm(request, pdfid):
 
-	userID=1
-	pdfid=1
+	loggedUserID=request.user.id
+	#pdfid=pdf_id
 
 	#get details about the form
 	formData=PDFForm.objects.get(id=pdfid)
+	
 	#get all fields in PDF related to PDFID
 	fieldsinPDF=PDFFormField.objects.filter(pdf=pdfid).values_list(
 																	"field",
