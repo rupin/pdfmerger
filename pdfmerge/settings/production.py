@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',	
     'import_export',
-	'pdfmerge'
+	'pdfmerge',
+    'storages'
 ]
 
 MIDDLEWARE = [
