@@ -8,3 +8,4 @@ reportlab
 PyPDF2
 pandas
 google-auth
+google-cloud-storage
