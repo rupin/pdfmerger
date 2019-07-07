@@ -14,6 +14,7 @@ import dj_database_url
 import django_heroku
 from pathlib import Path
 from google.oauth2 import service_account
+import json
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = Path(__file__).parent.parent
