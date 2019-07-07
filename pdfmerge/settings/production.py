@@ -162,5 +162,7 @@ GS_AUTO_CREATE_BUCKET=True
 service_account_info = json.loads(os.environ.get('GS_ACCOUNT_JSON', default=False))
 #print(service_account_info)
 GS_CREDENTIALS = service_account.Credentials.from_service_account_info(service_account_info)
+projectId=service_account_info["project_id"]
+GS_PROJECT_ID=projectId
 # Activate Django-Heroku.
 django_heroku.settings(locals())
