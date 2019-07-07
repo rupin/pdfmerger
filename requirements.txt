@@ -7,3 +7,4 @@ django-import-export
 reportlab
 PyPDF2
 pandas
+google-auth

@@ -9,11 +9,11 @@ import pandas as pd
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
-def getUsers(request):
-    users = CustomUser.objects.all()
+def homePage(request):
+    
     template = loader.get_template('base_intro.html')
     context = {
-        'userList': users,
+       
     }
     return HttpResponse(template.render(context, request))
 	

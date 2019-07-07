@@ -13,6 +13,7 @@ import os
 import dj_database_url
 import django_heroku
 from pathlib import Path
+from google.oauth2 import service_account
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = Path(__file__).parent.parent
@@ -151,5 +152,10 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 #AWS_S3_REGION_NAME =os.environ.get("AWS_S3_REGION_NAME")
 LOGIN_URL = 'pdfmerge.views.loginForm'
 IMPORT_EXPORT_USE_TRANSACTIONS = True
+
+
+DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+GS_BUCKET_NAME = 'pdfmergefiles'
+GS_CREDENTIALS = credentials = service_account.Credentials.from_service_account_info(os.environ.get('GS_ACCOUNT_JSON', default=False))
 # Activate Django-Heroku.
 django_heroku.settings(locals())
