@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.conf import settings
+from django.core.files.storage import default_storage
 
 class CustomUser(AbstractUser):
     pass
@@ -11,11 +12,11 @@ class PDFForm(models.Model):
 	#pass	
 	pdf_type=models.IntegerField(default=0)
 	pdf_name=models.CharField(max_length=100,default='')
-	file_path=models.FileField(default='')
+	file_path=models.FileField(default='',upload_to='pdfs')
 	cellSize_X=models.DecimalField(max_digits=6,decimal_places=2,default=0)
 	cellSize_Y=models.DecimalField(max_digits=6,decimal_places=2,default=0)
 	pdf_description=models.CharField(max_length=200,default="")
-	image=models.FileField(default='')
+	image=models.FileField(default='',upload_to='photos')
 	def __str__(self):
 		return self.pdf_name
 
