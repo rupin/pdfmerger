@@ -158,6 +158,7 @@ IMPORT_EXPORT_USE_TRANSACTIONS = True
 
 DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
 GS_BUCKET_NAME = 'pdfmergefiles'
+GS_AUTO_CREATE_BUCKET=True
 service_account_info = json.loads(os.environ.get('GS_ACCOUNT_JSON', default=False))
 #print(service_account_info)
 GS_CREDENTIALS = service_account.Credentials.from_service_account_info(service_account_info)
