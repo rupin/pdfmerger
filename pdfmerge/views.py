@@ -54,7 +54,7 @@ def addFormToProfile(request,form_id):
 	loggedUserID=request.user.id
 	UserObject=request.user
 	PDFormObject=PDFForm.objects.get(id=form_id)
-	print(len(PDFormObject))
+	#print(len(PDFormObject))
 		
 	isFormPresent=GeneratedPDF.objects.filter(user=UserObject, pdf=PDFormObject).count()
 	if(isFormPresent==0):
