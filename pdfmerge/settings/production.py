@@ -157,6 +157,7 @@ IMPORT_EXPORT_USE_TRANSACTIONS = True
 DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
 GS_BUCKET_NAME = 'pdfmergefiles'
 service_account_info = json.load(os.environ.get('GS_ACCOUNT_JSON', default=False))
+print(service_account_info)
 GS_CREDENTIALS = credentials = service_account.Credentials.from_service_account_info(service_account_info)
 # Activate Django-Heroku.
 django_heroku.settings(locals())
