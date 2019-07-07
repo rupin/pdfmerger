@@ -175,7 +175,6 @@ with open('creds/creds.json') as f:
 service_account_info = credentials
 #print(service_account_info)
 GS_CREDENTIALS = service_account.Credentials.from_service_account_info(service_account_info)
-projectId=service_account_info["project_id"]
-GS_PROJECT_ID=projectId
+GS_PROJECT_ID=service_account_info["project_id"]
 # Activate Django-Heroku.
 django_heroku.settings(locals())
