@@ -14,6 +14,7 @@ class PDFForm(models.Model):
 	file_path=models.FileField(default='')
 	cellSize_X=models.DecimalField(max_digits=6,decimal_places=2,default=0)
 	cellSize_Y=models.DecimalField(max_digits=6,decimal_places=2,default=0)
+	pdf_description=models.CharField(max_length=200,default="")
 	def __str__(self):
 		return self.pdf_name
 

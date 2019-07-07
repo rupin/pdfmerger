@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 
 def getUsers(request):
     users = CustomUser.objects.all()
-    template = loader.get_template('base.html')
+    template = loader.get_template('base_intro.html')
     context = {
         'userList': users,
     }
@@ -46,6 +46,27 @@ def viewSystemForms(request):
 	}
 	template = loader.get_template('formsList.html')
 	return HttpResponse(template.render(context, request))
+
+@login_required
+def addFormToProfile(request,form_id):
+	#return HttpResponse(str(form_id))
+	errorCondition=False
+	loggedUserID=request.user.id
+	UserObject=request.user
+	PDFormObject=PDFForm.objects.get(id=form_id)
+	print(len(PDFormObject))
+		
+	isFormPresent=GeneratedPDF.objects.filter(user=UserObject, pdf=PDFormObject).count()
+	if(isFormPresent==0):
+		addform=GeneratedPDF(user=UserObject, pdf=PDFormObject)
+		addform.save()
+
+
+	return HttpResponse("Form Added to Profile")
+		
+
+    
+
 
 def logoutUser(request):
 	logout(request)

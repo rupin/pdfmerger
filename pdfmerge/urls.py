@@ -28,5 +28,6 @@ urlpatterns = [
     path('logout/', views.logoutUser, name='logout'),
 	path('loginAuth/', views.loginUser, name='loginsubmit'),
     path('viewPDF/', views.fillForm, name='fillform'),
-    path('systemForms/', views.viewSystemForms, name='systemForms')
+    path('systemForms/', views.viewSystemForms, name='systemForms'),
+    path('addForm/<int:form_id>', views.addFormToProfile, name='systemForms')
 ]
