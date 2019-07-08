@@ -54,15 +54,66 @@ def addFormToProfile(request,form_id):
 	loggedUserID=request.user.id
 	UserObject=request.user
 	PDFormObject=PDFForm.objects.get(id=form_id)
-	#print(len(PDFormObject))
+	
 		
 	isFormPresent=GeneratedPDF.objects.filter(user=UserObject, pdf=PDFormObject).count()
 	if(isFormPresent==0):
 		addform=GeneratedPDF(user=UserObject, pdf=PDFormObject)
 		addform.save()
+	
 
 
-	return HttpResponse("Form Added to Profile")
+	
+	#get all fields in PDF related to PDFID
+	fieldsinPDF=PDFFormField.objects.filter(pdf=form_id).values_list(
+																	"field",
+																	"field_x",
+																	"field_page_number",
+																	"field_y",
+																	"field_x_increment",
+																	"field_choice",
+																	"font_size",
+																	 named=True 
+																	 )
+	
+	#get all fields Related to User in UserProfile and that match the fields in the PDFForm
+	userFields=UserProfile.objects.filter(user=loggedUserID).values_list(
+																	"field", 
+																	"field_text",
+																	"field_date",																	
+																	named=True
+																	)
+	#dprint.dprint(queryset)
+
+	#Set the column as index on which the join is to be made in pandas
+	#print(userFields)
+	#print(fieldsinPDF)
+	userFieldDF=pd.DataFrame(list(userFields)).set_index('field')
+	PDFFieldsDF=pd.DataFrame(list(fieldsinPDF)).set_index('field')
+
+	#dprint.dprint(userFieldDF)
+
+	#dprint.dprint(PDFFieldsDF)
+	
+	#Make the Join
+	combinedDF=PDFFieldsDF.join(userFieldDF, on='field',lsuffix='_left', rsuffix='_right')
+	#remove rows with NA Values. Will happen when the number of rows in the above datasets differ in count. 
+	#combinedDF.dropna(0,inplace=True)
+	
+	#sort the Dataframe by Field Page Number, then convert it to a list of dictionaries
+	#dataSet=combinedDF.sort_values(by=['field_page_number']).to_dict('records')
+
+
+	#dprint.dprint(combinedDF)
+	missingQuestionsList=combinedDF[pd.isnull(combinedDF).any(axis=1)]
+
+	context = {
+		'formObject':PDFormObject,
+		"missingQuestions":missingQuestionsList
+	}
+	#dprint.dprint(missingQuestionsList)
+	template = loader.get_template('process_form.html')
+	return HttpResponse(template.render(context, request))
 		
 
     
