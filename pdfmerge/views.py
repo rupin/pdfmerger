@@ -106,13 +106,15 @@ def addFormToProfile(request,form_id):
 	missingQuestionsList=combinedDF[combinedDF["field__field_state"]=='DYNAMIC']
 	missingQuestionsList.fillna(value='',inplace=True)		
 	missingQuestionTuples=list(missingQuestionsList.itertuples())
-	print(type(missingQuestionTuples))
+	#print(type(missingQuestionTuples))
+	numberOfMissingQuestions=len(missingQuestionTuples)
 	context = {
 		'formObject':PDFormObject,
-		"missingQuestions":missingQuestionTuples
+		"missingQuestions":missingQuestionTuples,
+		'questionCount':numberOfMissingQuestions
 	}
 	#dprint.dprint(missingQuestionsList)
-	print(missingQuestionTuples)
+	print(context)
 	template = loader.get_template('process_form.html')
 	return HttpResponse(template.render(context, request))
 		
