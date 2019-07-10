@@ -27,7 +27,8 @@
 
   <!-- Main Stylesheet File -->
   <link href="{% static 'css/style.css' %}" rel="stylesheet">
-
+  <link href="{% static 'css/pdfmerge.css' %}" rel="stylesheet">
+   {% block page_specific_css %}   {% endblock %}
   <!-- =======================================================
     Theme Name: Rapid
     Theme URL: https://bootstrapmade.com/rapid-multipurpose-bootstrap-business-template/
@@ -264,6 +265,8 @@
 
   <!-- Template Main Javascript File -->
   <script src="{% static 'js/main.js' %}"></script>
+
+  {% block page_specific_js %}   {% endblock %}
 
 </body>
 </html>

@@ -29,7 +29,7 @@ def loginUser(request):
 	username = request.POST['username']
 	password = request.POST['password']
 	user = authenticate(request, username=username, password=password)
-	print(user.id)
+	#print(user.id)
 	if user is not None:
 		login(request, user)
 		return redirect('systemForms')
@@ -66,14 +66,11 @@ def addFormToProfile(request,form_id):
 	
 	#get all fields in PDF related to PDFID
 	fieldsinPDF=PDFFormField.objects.filter(pdf=form_id).values_list(
-																	"field",
-																	"field_x",
-																	"field_page_number",
-																	"field_y",
-																	"field_x_increment",
+																	"field",																
 																	"field_choice",
-																	"font_size",
-																	 named=True 
+																	"field__field_question",
+																	"field__field_state",																	
+																	 named=True
 																	 )
 	
 	#get all fields Related to User in UserProfile and that match the fields in the PDFForm
@@ -105,13 +102,17 @@ def addFormToProfile(request,form_id):
 
 
 	#dprint.dprint(combinedDF)
-	missingQuestionsList=combinedDF[pd.isnull(combinedDF).any(axis=1)]
-
+	
+	missingQuestionsList=combinedDF[combinedDF["field__field_state"]=='DYNAMIC']
+	missingQuestionsList.fillna(value='',inplace=True)		
+	missingQuestionTuples=list(missingQuestionsList.itertuples())
+	print(type(missingQuestionTuples))
 	context = {
 		'formObject':PDFormObject,
-		"missingQuestions":missingQuestionsList
+		"missingQuestions":missingQuestionTuples
 	}
 	#dprint.dprint(missingQuestionsList)
+	print(missingQuestionTuples)
 	template = loader.get_template('process_form.html')
 	return HttpResponse(template.render(context, request))
 		

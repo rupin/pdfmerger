@@ -23,7 +23,14 @@ class PDFForm(models.Model):
 #Class has reference to every form Field created
 class Field(models.Model):
 	#pass	
+	FIELD_CHOICES = (
+						('DYNAMIC', 'DYNAMIC'),
+						("STATIC", "STATIC"),
+						
+					)
 	field_description=models.CharField(max_length=200,default='')
+	field_question=models.CharField(max_length=300, default='')
+	field_state=models.CharField(max_length=20,choices=FIELD_CHOICES,default="STATIC")
 	def __str__(self):
 		return self.field_description
 	

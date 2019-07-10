@@ -25,7 +25,7 @@ class UserProfileAdmin(ImportExportModelAdmin):
 
 class FieldAdmin(ImportExportModelAdmin):
     model=Field
-    list_display=['id', "field_description",]   	
+    list_display=['id', "field_description",'field_question']   	
     
   
 

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block spacer %} 
 <div style="height:100px">&nbsp;</div>
  {% endblock %}
@@ -11,26 +11,56 @@
         <header class="section-header">
           <h3>Success</h3>
           <h6>{{formObject.pdf_name}} has been added to your profile.</h6>
-          <h6>Please add answers for questions below. Click Save to Continue</h6>
+          <h6>Please add answers for questions below. The values saved in your profile have been populated. Please review and change them if they are incorrect.</h6>
+          <h6> Click Save to Continue</h6>
         </header>
+        <div style='margin-top: 20px'>
+        	&nbsp;
+        </div>
 
-        <ul id="faq-list" class="">
+        <form>
+
+       	<div class='alternate_rows'> 
+        {% for question in missingQuestions%}  
+
+        	<div class='question_row'>        
+            	<h6>Q. {{question.field__field_question}} </h6>
+            	{% ifequal question.field_choice 'FULLDATE' %}
+		            <div>	              
+		                A. <input type="text" name="{{question.Index}}" value='{{question.field_date}}' class='datefield'>
+		                	
+		                </input>
+		            </div>
+	            {% else %}
+		            <div>	              
+		                A. <input type="text" name="{{question.Index}}" value='{{question.field_text}}'></input>
+		            </div>
+	            {%endifequal%}
+          	</div>
+
+          {% endfor%}
+
+       	</div>
 
 
-          <li>
-            <a data-toggle="collapse" class="collapsed" href="#faq1">Non consectetur a erat nam at lectus urna duis? <i class="ion-android-remove"></i></a>
-            <div id="faq1" class="collapse" data-parent="#faq-list">
-              <p>
-                Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.
-              </p>
-            </div>
-          </li>
+        <div>
+            <a href="/login/" class="button_blue">Save to Continue</a>
+      	</div>
+    </form>
 
-          
-
-        </ul>
 
       </div>
+     
     </section><!-- #faq -->
 
  {% endblock %}
+
+ {% block page_specific_css %} 
+ <link href="{% static 'css/jquery-ui.min.css' %}" rel="stylesheet">
+
+   {% endblock %}
+
+   {% block page_specific_js %} 
+   <script src="{% static 'lib/jqueryui/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'js/pdfmerge.js' %}"></script>
+   {% endblock %}

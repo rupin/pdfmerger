@@ -3,3 +3,26 @@
   font-family: FontAwesome;
   padding-left: 10px;
 }
+
+div.alternate_rows
+{
+	padding-bottom:20px;
+	
+}
+div.alternate_rows > div:nth-of-type(odd) {
+    background: #e0e0e0;
+    border-bottom: 1px solid #FFFFFF;
+
+}
+div.alternate_rows > div:nth-of-type(even) {
+    background: #cccccc;
+    border-bottom: 1px solid #FFFFFF;
+    
+}
+div.question_row
+{
+	padding-top:10px;
+	padding-left:10px;
+	padding-bottom:10px;
+	margin-bottom:0px;
+}
