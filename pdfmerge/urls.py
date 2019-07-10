@@ -29,5 +29,6 @@ urlpatterns = [
 	path('loginAuth/', views.loginUser, name='loginsubmit'),
     path('viewPDF/<int:pdfid>', views.fillForm, name='fillform'),
     path('systemForms/', views.viewSystemForms, name='systemForms'),
-    path('addForm/<int:form_id>', views.addFormToProfile, name='systemForms')
+    path('addForm/<int:form_id>', views.addFormToProfile, name='systemForms'),
+    path('saveDynamicData/<int:pdfid>', views.saveDynamicFieldData, name='saveDynamicData')
 ]

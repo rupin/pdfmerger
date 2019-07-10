@@ -20,22 +20,24 @@
         	&nbsp;
         </div>
 
-        <form>
-
+        <form action="/saveDynamicData/{{form_id}}" method="post" role="form" class="contactForm">
+        {% csrf_token %}
+        <input type="hidden" name='fieldIDs' value={{fieldIDS}}></input>
        	<div class='alternate_rows'> 
-        {% for question in missingQuestions%}  
-
-        	<div class='question_row'>        
+        {% for question in missingQuestions%}
+           	<div class='question_row'>        
             	<h6>Q. {{question.field__field_question}} </h6>
             	{% ifequal question.field_choice 'FULLDATE' %}
 		            <div>	              
-		                A. <input type="text" name="{{question.Index}}" value='{{question.field_date}}' class='datefield'>
+		                A. <input type="text" name="{{question.field}}" value='{{question.field_date}}' class='datefield'>
+
 		                	
 		                </input>
+
 		            </div>
 	            {% else %}
 		            <div>	              
-		                A. <input type="text" name="{{question.Index}}" value='{{question.field_text}}'></input>
+		                A. <input type="text" name="{{question.field}}" value='{{question.field_text}}'></input>		                
 		            </div>
 	            {%endifequal%}
           	</div>
@@ -46,7 +48,7 @@
 
 
         <div>
-            <a href="/login/" class="button_blue">Save to Continue</a>
+            <input type="submit" value='Save to Continue' title='Save to Continue' class="button_blue"></a>
       	</div>
     </form>
 

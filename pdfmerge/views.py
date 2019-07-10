@@ -8,6 +8,10 @@ from utils import dprint
 import pandas as pd
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_http_methods
+from django.utils.dateparse import parse_date 
+
+import datetime
 
 def homePage(request):
     
@@ -104,20 +108,67 @@ def addFormToProfile(request,form_id):
 	#dprint.dprint(combinedDF)
 	
 	missingQuestionsList=combinedDF[combinedDF["field__field_state"]=='DYNAMIC']
-	missingQuestionsList.fillna(value='',inplace=True)		
+	missingQuestionsList.fillna(value='',inplace=True)
+	missingQuestionsList.reset_index(inplace=True)
+	#missingQuestionsList['field_str']=missingQuestionsList['field'].astype(str)
+	
+
 	missingQuestionTuples=list(missingQuestionsList.itertuples())
 	#print(type(missingQuestionTuples))
+	fieldIDStr=""
+	for question in missingQuestionTuples:
+		fieldIDStr=fieldIDStr+" " +str(question.field)
+	fieldIDStr=fieldIDStr.strip().replace(" ", ",")
+	#print(fieldIDStr)
 	numberOfMissingQuestions=len(missingQuestionTuples)
 	context = {
 		'formObject':PDFormObject,
 		"missingQuestions":missingQuestionTuples,
-		'questionCount':numberOfMissingQuestions
+		'questionCount':numberOfMissingQuestions,
+		'form_id':form_id,
+		'fieldIDS':fieldIDStr
 	}
 	#dprint.dprint(missingQuestionsList)
-	print(context)
+	#print(context)
 	template = loader.get_template('process_form.html')
 	return HttpResponse(template.render(context, request))
 		
+
+@login_required
+@require_http_methods(["POST"])
+def saveDynamicFieldData(request,pdfid):
+	defaultDate=datetime.date(1987, 6,15)
+	recievedDateFormat=""
+	fieldIDList=request.POST["fieldIDs"].split(",")
+	for field in fieldIDList:
+		fieldValue=request.POST[field]
+		fieldObject=Field.objects.get(id=field)
+		userProfile=UserProfile.objects.filter(user=request.user,field=fieldObject)
+		PDFFormFieldObject=PDFFormField.objects.filter(pdf=pdfid,field=fieldObject).values("field_choice")
+		#print(PDFFormFieldObject)
+		field_choice=PDFFormFieldObject[0].get("field_choice")
+		#print(field_choice)
+		userProfileExists=userProfile.count()
+		if(userProfileExists==1): # The User Profile Exists
+			#if(fieldObject.)
+			if(field_choice=="FULLDATE"):
+				fieldDate=datetime.datetime.strptime(fieldValue, '%d %B, %Y').date()
+				userUpdateStatus=userProfile.update(field_text="", field_date=fieldDate)
+			else:
+				userUpdateStatus=userProfile.update(field_text=fieldValue, field_date=defaultDate)
+				
+		else:
+			if(field_choice=="FULLDATE"):
+				fieldDate=datetime.datetime.strptime(fieldValue, '%d %B, %Y').date()
+				userCreatestatus=UserProfile(user=request.user,field=fieldObject, field_text="", field_date=temp_date)
+				userCreatestatus.save()
+			else:	
+				userCreatestatus=UserProfile(user=request.user,field=fieldObject, field_text=fieldValue,field_date=defaultDate)
+				userCreatestatus.save()
+
+
+	
+	return HttpResponse("Data Saved")
 
     
 
@@ -148,7 +199,7 @@ def fillForm(request, pdfid):
 																	 )
 	
 	#get all fields Related to User in UserProfile and that match the fields in the PDFForm
-	userFields=UserProfile.objects.filter(user=userID).values_list(
+	userFields=UserProfile.objects.filter(user=loggedUserID).values_list(
 																	"field", 
 																	"field_text",
 																	"field_date",																	
@@ -163,14 +214,16 @@ def fillForm(request, pdfid):
 	
 	#Make the Join
 	combinedDF=userFieldDF.join(PDFFieldsDF, on='field',lsuffix='_left', rsuffix='_right')
+	combinedDF.sort_values(by=['field_page_number'],inplace=True)
+	#
 	#remove rows with NA Values. Will happen when the number of rows in the above datasets differ in count. 
 	combinedDF.dropna(0,inplace=True)
-	
+	#print(combinedDF)
 	#sort the Dataframe by Field Page Number, then convert it to a list of dictionaries
-	dataSet=combinedDF.sort_values(by=['field_page_number']).to_dict('records')
+	dataSet=combinedDF.to_dict('records')
 	
 
-	#print(dataSet)
+	print(dataSet)
 	#Use the dataset as input to generate the pdf, recieve a buffer as reponse 
 	pdfData=dataLayerPDF.addText(dataSet,formData)
 	# #output=dataLayerPDF.mergePDFs()
