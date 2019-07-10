@@ -12,6 +12,7 @@ from django.views.decorators.http import require_http_methods
 from django.utils.dateparse import parse_date 
 
 import datetime
+from dateutil.parser import *
 
 def homePage(request):
     
@@ -147,19 +148,25 @@ def saveDynamicFieldData(request,pdfid):
 		PDFFormFieldObject=PDFFormField.objects.filter(pdf=pdfid,field=fieldObject).values("field_choice")
 		#print(PDFFormFieldObject)
 		field_choice=PDFFormFieldObject[0].get("field_choice")
-		#print(field_choice)
+		#print(fieldValue)
 		userProfileExists=userProfile.count()
 		if(userProfileExists==1): # The User Profile Exists
 			#if(fieldObject.)
 			if(field_choice=="FULLDATE"):
-				fieldDate=datetime.datetime.strptime(fieldValue, '%d %B, %Y').date()
+				#fieldDate=datetime.datetime.strptime(fieldValue, '%d %B, %Y').date()
+				fieldDate=parse(fieldValue).date()
+				print(fieldDate)
+				#fieldDate=timestring.Date(fieldValue).date
+				#print(fieldDate)
 				userUpdateStatus=userProfile.update(field_text="", field_date=fieldDate)
 			else:
 				userUpdateStatus=userProfile.update(field_text=fieldValue, field_date=defaultDate)
 				
 		else:
 			if(field_choice=="FULLDATE"):
-				fieldDate=datetime.datetime.strptime(fieldValue, '%d %B, %Y').date()
+				#fieldDate=datetime.datetime.strptime(fieldValue, '%d %B, %Y').date()
+				#fieldDate=timestring.Date(fieldValue).date
+				fieldDate=parse(fieldValue).date()
 				userCreatestatus=UserProfile(user=request.user,field=fieldObject, field_text="", field_date=temp_date)
 				userCreatestatus.save()
 			else:	
