@@ -19,6 +19,8 @@ class PDFForm(models.Model):
 	image=models.FileField(default='',upload_to='photos')
 	def __str__(self):
 		return self.pdf_name
+	class Meta:
+		ordering= ("pdf_name",)
 
 #Class has reference to every form Field created
 class Field(models.Model):

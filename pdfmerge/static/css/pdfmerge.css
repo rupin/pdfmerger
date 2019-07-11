@@ -9,14 +9,19 @@ div.alternate_rows
 	padding-bottom:20px;
 	
 }
+div.alternate_rows > div
+{
+  border-bottom: 3px dotted #FFFFFF;
+}
 div.alternate_rows > div:nth-of-type(odd) {
     background: #e0e0e0;
-    border-bottom: 1px solid #FFFFFF;
+    
 
 }
 div.alternate_rows > div:nth-of-type(even) {
-    background: #cccccc;
-    border-bottom: 1px solid #FFFFFF;
+    background: #999999;
+    color:#FFFFFF
+   
     
 }
 div.question_row
@@ -25,4 +30,18 @@ div.question_row
 	padding-left:10px;
 	padding-bottom:10px;
 	margin-bottom:0px;
+}
+.fa_big
+{
+
+}
+
+div.user_info
+{
+
+  margin-left:50px;
+  /*margin-top:-10px;*/
+  text-align:center;
+  
+  
 }

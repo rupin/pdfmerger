@@ -14,7 +14,7 @@
           {% ifnotequal questionCount 0 %}
           	<h6>Please add answers for questions below. The values saved in your profile have been populated. Please review and change them if they are incorrect.</h6>
           {% endifnotequal %}
-          <h6> Click Save to Continue</h6>
+          <h6> Click Generate PDF to view your complete form</h6>
         </header>
         <div style='margin-top: 20px'>
         	&nbsp;
@@ -26,10 +26,10 @@
        	<div class='alternate_rows'> 
         {% for question in missingQuestions%}
            	<div class='question_row'>        
-            	<h6>Q. {{question.field__field_question}} </h6>
+            	<h6><b>Q. {{question.field__field_question}} </b></h6>
             	{% ifequal question.field__field_display 'FULLDATE' %}
 		            <div>	              
-		                A. <input type="text" name="{{question.field}}" value='{{question.field_date}}' class='datefield'>
+		                A. <input type="text" size="40" name="{{question.field}}" value='{{question.field_date}}' class='datefield'>
 
 		                	
 		                </input>
@@ -37,7 +37,7 @@
 		            </div>
 	            {% else %}
 		            <div>	              
-		                A. <input type="text" name="{{question.field}}" value='{{question.field_text}}'></input>		                
+		                A. <input type="text" size="40" name="{{question.field}}" value='{{question.field_text}}'></input>		                
 		            </div>
 	            {%endifequal%}
           	</div>
@@ -68,3 +68,11 @@
    <script src="{% static 'lib/jqueryui/jquery-ui.min.js' %}"></script>
     <script src="{% static 'js/pdfmerge.js' %}"></script>
    {% endblock %}
+
+   
+
+  {% block user_info %}
+    
+{% include "profilelink.html" %}
+
+ {% endblock %} 

@@ -81,6 +81,7 @@ TEMPLATES = [
         },
     },
 ]
+TEMPLATE_DEBUG = True
 
 WSGI_APPLICATION = 'pdfmerge.wsgi.application'
 

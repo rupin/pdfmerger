@@ -1,5 +1,6 @@
 
 {% extends 'base.html' %}
+
 {% load static %}
 
 {% block team %}
@@ -40,10 +41,12 @@
     </section><!-- #team -->
 {% endblock %}
 
-    
 
-
+{% block user_info %}
     
+{% include "profilelink.html" %}
+
+ {% endblock %}   
 
    
 
