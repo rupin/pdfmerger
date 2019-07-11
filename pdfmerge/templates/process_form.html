@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block spacer %} 
-<div style="height:100px">&nbsp;</div>
+<div style="height:100px;background: #f5f8fd;">&nbsp;</div>
  {% endblock %}
 
 
 {% block additional_questions %}
-	<section id="faq">
+	<section id="faq" style="background: #f5f8fd;">
       <div class="container">
         <header class="section-header">
           <h3>Success</h3>
@@ -27,7 +27,7 @@
         {% for question in missingQuestions%}
            	<div class='question_row'>        
             	<h6>Q. {{question.field__field_question}} </h6>
-            	{% ifequal question.field_choice 'FULLDATE' %}
+            	{% ifequal question.field__field_display 'FULLDATE' %}
 		            <div>	              
 		                A. <input type="text" name="{{question.field}}" value='{{question.field_date}}' class='datefield'>
 
@@ -48,7 +48,7 @@
 
 
         <div>
-            <input type="submit" value='Save to Continue' title='Save to Continue' class="button_blue"></a>
+            <input type="submit" value='Generate PDF' title='Save to Continue' class="button_blue"></a>
       	</div>
     </form>
 

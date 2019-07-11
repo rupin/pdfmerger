@@ -72,7 +72,7 @@ def addFormToProfile(request,form_id):
 	#get all fields in PDF related to PDFID
 	fieldsinPDF=PDFFormField.objects.filter(pdf=form_id).values_list(
 																	"field",																
-																	"field_choice",
+																	"field__field_display",
 																	"field__field_question",
 																	"field__field_state",																	
 																	 named=True
@@ -130,7 +130,7 @@ def addFormToProfile(request,form_id):
 		'fieldIDS':fieldIDStr
 	}
 	#dprint.dprint(missingQuestionsList)
-	#print(context)
+	print(context)
 	template = loader.get_template('process_form.html')
 	return HttpResponse(template.render(context, request))
 		
@@ -145,14 +145,14 @@ def saveDynamicFieldData(request,pdfid):
 		fieldValue=request.POST[field]
 		fieldObject=Field.objects.get(id=field)
 		userProfile=UserProfile.objects.filter(user=request.user,field=fieldObject)
-		PDFFormFieldObject=PDFFormField.objects.filter(pdf=pdfid,field=fieldObject).values("field_choice")
+		#PDFFormFieldObject=PDFFormField.objects.filter(pdf=pdfid,field=fieldObject).values("field_choice")
 		#print(PDFFormFieldObject)
-		field_choice=PDFFormFieldObject[0].get("field_choice")
+		field_display=fieldObject.field_display
 		#print(fieldValue)
 		userProfileExists=userProfile.count()
 		if(userProfileExists==1): # The User Profile Exists
 			#if(fieldObject.)
-			if(field_choice=="FULLDATE"):
+			if(field_display=="FULLDATE"):
 				#fieldDate=datetime.datetime.strptime(fieldValue, '%d %B, %Y').date()
 				fieldDate=parse(fieldValue).date()
 				print(fieldDate)
@@ -163,7 +163,7 @@ def saveDynamicFieldData(request,pdfid):
 				userUpdateStatus=userProfile.update(field_text=fieldValue, field_date=defaultDate)
 				
 		else:
-			if(field_choice=="FULLDATE"):
+			if(field_display=="FULLDATE"):
 				#fieldDate=datetime.datetime.strptime(fieldValue, '%d %B, %Y').date()
 				#fieldDate=timestring.Date(fieldValue).date
 				fieldDate=parse(fieldValue).date()
@@ -175,7 +175,7 @@ def saveDynamicFieldData(request,pdfid):
 
 
 	
-	return HttpResponse("Data Saved")
+	return redirect('/viewPDF/'+str(pdfid))
 
     
 
@@ -200,7 +200,7 @@ def fillForm(request, pdfid):
 																	"field_page_number",
 																	"field_y",
 																	"field_x_increment",
-																	"field_choice",
+																	"field__field_display",
 																	"font_size",
 																	 named=True 
 																	 )
@@ -230,7 +230,7 @@ def fillForm(request, pdfid):
 	dataSet=combinedDF.to_dict('records')
 	
 
-	print(dataSet)
+	#print(dataSet)
 	#Use the dataset as input to generate the pdf, recieve a buffer as reponse 
 	pdfData=dataLayerPDF.addText(dataSet,formData)
 	# #output=dataLayerPDF.mergePDFs()
@@ -238,17 +238,22 @@ def fillForm(request, pdfid):
 	
 	#Set the httpresponse to download a pdf
 	response = HttpResponse(content_type='application/pdf')
-	response['Content-Disposition'] = 'attachment; filename="dataLayer.pdf"'
+	response['Content-Disposition'] = 'inline; filename="dataLayer.pdf"'
 	#response.write(PDFBytes)
 
 	#write the pdfdata to the responseobject
 	pdfData.write(response)
-	#print(userFieldDF)
+	
 
 	#return the response 
 	return response
 	
-	#return fieldData
-	#context = {'UserData': dataSet,}
-	#template = loader.get_template('pdf.html')
-	#return HttpResponse(template.render(context, request))
+	
+
+@login_required
+def profile(request):
+	template = loader.get_template('base_view_profile.html')
+	context = {
+		
+	}
+	return HttpResponse(template.render(context, request))	

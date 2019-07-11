@@ -30,5 +30,6 @@ urlpatterns = [
     path('viewPDF/<int:pdfid>', views.fillForm, name='fillform'),
     path('systemForms/', views.viewSystemForms, name='systemForms'),
     path('addForm/<int:form_id>', views.addFormToProfile, name='systemForms'),
-    path('saveDynamicData/<int:pdfid>', views.saveDynamicFieldData, name='saveDynamicData')
+    path('saveDynamicData/<int:pdfid>', views.saveDynamicFieldData, name='saveDynamicData'),
+    path('profile', views.profile, name='profile')
 ]

@@ -8,7 +8,11 @@ import sys
 from datetime import datetime
 import os
 
-
+from django.core.files import File
+from os.path import basename
+import requests
+from tempfile import NamedTemporaryFile
+from urllib.parse import urlsplit
 
 
 
@@ -20,7 +24,7 @@ def copy_filelike_to_filelike(src, dst, bufsize=16384):
 		dst.write(buf)
 
 def formatFieldTextByChoice(field):
-	fieldChoice=field.get("field_choice")
+	fieldChoice=field.get("field__field_display")
 	if(fieldChoice=='NONE'):
 		fieldText=field.get("field_text").upper()
 	elif(fieldChoice=='FULLDATE'):
@@ -86,22 +90,12 @@ def addText(FieldData, FormData):
 
 	
 	my_canvas.save()
-	pdf = buffer.getvalue()
-	
-	# temporarylocation="datalayer.pdf"
-	# with open(temporarylocation, "wb") as outfile:
-	# 	copy_filelike_to_filelike(buffer, outfile)
-	# buffer.close()
-	# return pdf
-	#buffer.close()
-
-
-	#print(djangoSettings.STATIC_DIR)
-	baseLayerPath=os.path.join(djangoSettings.STATIC_DIR, 'pdfs\\SingaporeVisa.pdf')	
-	
+	#pdf = buffer.getvalue()	
+		
+	baseLayerTempFile=downloadFile(FormData.file_path.url)
 
 	
-	EmptyForm = PdfFileReader(open(baseLayerPath, "rb"))
+	EmptyForm = PdfFileReader(baseLayerTempFile.name)
 	dataLayer=PdfFileReader(buffer)
 	emptyFormPageCount=EmptyForm.getNumPages()
 	dataLayerPagecount=dataLayer.getNumPages()
@@ -116,9 +110,16 @@ def addText(FieldData, FormData):
 		for emptyPagesIndex in range(dataLayerPagecount, emptyFormPageCount):
 				formPage=EmptyForm.getPage(emptyPagesIndex)
 				output.addPage(formPage)
-
+	baseLayerTempFile.close()
 	return output			
 	# with open("join.pdf", "wb") as outputStream:
 	# 	output.write(outputStream)
 	# return "join.pdf"
 
+def downloadFile(webFilePath):
+	with NamedTemporaryFile(delete=False) as tf:
+		r = requests.get(webFilePath, stream=True)
+		for chunk in r.iter_content(chunk_size=4096):
+			tf.write(chunk)
+	return tf
+	
