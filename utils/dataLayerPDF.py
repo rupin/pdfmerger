@@ -57,9 +57,9 @@ def addText(FieldData, FormData):
 	buffer = BytesIO()
 	my_canvas = canvas.Canvas(buffer , pagesize=A4) 
 	lastFieldPage=0
+	print(FieldData)
 	for field in FieldData:
-		#print(field)
-		
+		print(field)		
 		letterCount=0
 		currentPage=field.get("field_page_number")
 		if(currentPage==lastFieldPage+1):
