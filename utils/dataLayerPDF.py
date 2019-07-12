@@ -93,12 +93,13 @@ def addText(FieldData, FormData):
 	#pdf = buffer.getvalue()	
 		
 	baseLayerTempFile=downloadFile(FormData.file_path.url)
-
 	
-	EmptyForm = PdfFileReader(baseLayerTempFile.name)
+	EmptyForm = PdfFileReader(baseLayerTempFile)
 	dataLayer=PdfFileReader(buffer)
 	emptyFormPageCount=EmptyForm.getNumPages()
 	dataLayerPagecount=dataLayer.getNumPages()
+	#print(emptyFormPageCount)
+	#print(dataLayerPagecount)
 	output = PdfFileWriter()
 	if(emptyFormPageCount>=dataLayerPagecount):
 		for pageIndex in range(0,dataLayerPagecount):
@@ -110,16 +111,23 @@ def addText(FieldData, FormData):
 		for emptyPagesIndex in range(dataLayerPagecount, emptyFormPageCount):
 				formPage=EmptyForm.getPage(emptyPagesIndex)
 				output.addPage(formPage)
-	baseLayerTempFile.close()
+	#baseLayerTempFile.close()
 	return output			
 	# with open("join.pdf", "wb") as outputStream:
 	# 	output.write(outputStream)
 	# return "join.pdf"
 
+# def downloadFile(webFilePath):
+# 	with NamedTemporaryFile(delete=False) as tf:
+# 		r = requests.get(webFilePath, stream=True)
+# 		for chunk in r.iter_content(chunk_size=4096):
+# 			tf.write(chunk)
+# 	return tf
+
 def downloadFile(webFilePath):
-	with NamedTemporaryFile(delete=False) as tf:
-		r = requests.get(webFilePath, stream=True)
-		for chunk in r.iter_content(chunk_size=4096):
-			tf.write(chunk)
-	return tf
+	# with NamedTemporaryFile(delete=False) as tf:
+	new_buffer = BytesIO()
+	r = requests.get(webFilePath)	
+	new_buffer.write(r.content)
+	return new_buffer
 	
