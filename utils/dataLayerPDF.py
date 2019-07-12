@@ -54,8 +54,8 @@ def addText(FieldData, FormData):
 
 	fileName='svg_on_canvas.pdf'
 	tempFileSystemPath=fileName
-	buffer = BytesIO()
-	my_canvas = canvas.Canvas(buffer , pagesize=A4) 
+	my_buffer = BytesIO()
+	my_canvas = canvas.Canvas(my_buffer , pagesize=A4) 
 	lastFieldPage=0
 	print(FieldData)
 	for field in FieldData:
@@ -90,13 +90,13 @@ def addText(FieldData, FormData):
 
 	
 	my_canvas.save()
-	pdf = buffer.getvalue()	
+	pdf = my_buffer.getvalue()	
 	
 	return pdf	
 	baseLayerTempFile=downloadFile(FormData.file_path.url)
 	
 	EmptyForm = PdfFileReader(baseLayerTempFile)
-	dataLayer=PdfFileReader(buffer)
+	dataLayer=PdfFileReader(my_buffer)
 	emptyFormPageCount=EmptyForm.getNumPages()
 	dataLayerPagecount=dataLayer.getNumPages()
 	#print(emptyFormPageCount)
