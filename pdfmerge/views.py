@@ -106,7 +106,7 @@ def addFormToProfile(request,form_id):
 	#dataSet=combinedDF.sort_values(by=['field_page_number']).to_dict('records')
 
 
-	dprint.dprint(combinedDF)
+	#dprint.dprint(combinedDF)
 	
 	missingQuestionsList=combinedDF[combinedDF["field__field_state"]=='DYNAMIC']
 	missingQuestionsList.fillna(value='',inplace=True)
@@ -225,12 +225,12 @@ def fillForm(request, pdfid):
 	#
 	#remove rows with NA Values. Will happen when the number of rows in the above datasets differ in count. 
 	combinedDF.dropna(0,inplace=True)
-	#print(combinedDF)
+	#dprint.dprint(combinedDF)
 	#sort the Dataframe by Field Page Number, then convert it to a list of dictionaries
 	dataSet=combinedDF.to_dict('records')
 	
 
-	#print(dataSet)
+	print(dataSet)
 	#Use the dataset as input to generate the pdf, recieve a buffer as reponse 
 	pdfData=dataLayerPDF.addText(dataSet,formData)
 	# #output=dataLayerPDF.mergePDFs()
