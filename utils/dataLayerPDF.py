@@ -90,7 +90,8 @@ def addText(FieldData, FormData):
 			letterCount=letterCount+1	
 
 	
-	my_canvas.save()
+	my_canvas.save() # Save The Canvas element
+
 	#pdf = my_buffer.getvalue()	
 	
 	#return pdf	
