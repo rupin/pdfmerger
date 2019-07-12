@@ -25,6 +25,7 @@ def copy_filelike_to_filelike(src, dst, bufsize=16384):
 
 def formatFieldTextByChoice(field):
 	fieldChoice=field.get("field__field_display")
+	print("fieldChoice:"+fieldChoice)
 	if(fieldChoice=='NONE'):
 		fieldText=field.get("field_text").upper()
 	elif(fieldChoice=='FULLDATE'):
@@ -43,7 +44,9 @@ def formatFieldTextByChoice(field):
 		dateTimeObj = field.get("field_date")
 		fieldText=dateTimeObj.strftime("%d %B %Y")		# formats the date as 16 June 1984 
 	else:
-		fieldText=''
+		fieldText='abcd'
+
+	print("fieldText:"+fieldText)	
 
 	return fieldText	
 
@@ -57,9 +60,9 @@ def addText(FieldData, FormData):
 	my_buffer = BytesIO()
 	my_canvas = canvas.Canvas(my_buffer , pagesize=A4) 
 	lastFieldPage=0
-	print(FieldData)
+	#print(FieldData)
 	for field in FieldData:
-		print(field)		
+		#print(field)		
 		letterCount=0
 		currentPage=field.get("field_page_number")
 		if(currentPage==lastFieldPage+1):
@@ -72,8 +75,6 @@ def addText(FieldData, FormData):
 		fieldText=formatFieldTextByChoice(field)
 		for letter in fieldText:
 			textobject = my_canvas.beginText()
-
-
 			fontSize=field.get("font_size")
 			textobject.setFont('Courier', fontSize)
 
