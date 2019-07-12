@@ -44,7 +44,7 @@ def formatFieldTextByChoice(field):
 		dateTimeObj = field.get("field_date")
 		fieldText=dateTimeObj.strftime("%d %B %Y")		# formats the date as 16 June 1984 
 	else:
-		fieldText='abcd'
+		fieldText=''
 
 	#print("fieldText:"+fieldText)	
 

@@ -242,8 +242,8 @@ def fillForm(request, pdfid):
 	#response.write(PDFBytes)
 
 	#write the pdfdata to the responseobject
-	#pdfData.write(response)
-	response.write(pdfData)
+	pdfData.write(response)
+	#response.write(pdfData)
 
 	#return the response 
 	return response
