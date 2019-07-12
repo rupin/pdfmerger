@@ -237,8 +237,20 @@ def fillForm(request, pdfid):
 
 @login_required
 def profile(request):
+	# userForms=GeneratedPDF.objects.filter(user=request.user).values("pdf__pdf_name",
+	# 																	"pdf__pdf_description",
+	# 																	"pdf__image",
+
+	# 																		)
+	userForms=GeneratedPDF.objects.filter(user=request.user).prefetch_related("pdf")
+	#print(userForms)
+	userData=UserProfile.objects.filter(user=request.user).prefetch_related("field").order_by("field__field_description")
+																		
+	#print(userData)
 	template = loader.get_template('base_view_profile.html')
 	context = {
-		
+		"systemforms":userForms,
+		"userData":userData,		
 	}
+	#print(context)
 	return HttpResponse(template.render(context, request))	

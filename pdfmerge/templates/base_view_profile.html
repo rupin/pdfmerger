@@ -2,6 +2,89 @@
 
 {% load static %}
 
-{% block spacer %} 
-<div style="height:100px;">&nbsp;</div>
+
+
+
+{% block team %}
+  
+    <section id="team" class="section-bg" style="padding:200px 0px" >
+      <div class="container">
+        <div class="section-header">
+          <h3>Forms available in your profile</h3>
+        </div>
+        
+        <div class="row">
+          {% for form in systemforms %}
+          <div class="col-lg-3 col-md-6 ">
+            <div class="member">
+              <img src="{{form.pdf.image.url}}" class="img-fluid" alt="">
+              <div class="member-info">
+                <div class="member-info-content">
+                  <h4>{{form.pdf.pdf_name}}</h4>
+                  <span>{{form.pdf.pdf_description}}</span>
+                 <div class="social">
+                    <a href="/addForm/{{form.pdf.id}}" title='Regenerate Form'><i class="fa fa-file-pdf-o"></i></a>
+                    <i>&nbsp;</i>      
+                    <a href="/removeForm/{{form.pdf.id}}" title='Remove Form'><i class="fa fa-trash"></i></a>      
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        {% endfor %}          
+
+          
+
+        </div>
+
+      </div>
+    </section><!-- #team -->
+{% endblock %}
+
+
+{% block user_info %}
+    
+{% include "profilelink.html" %}
+
+ {% endblock %}  
+
+ {% block additional_questions %}
+	<section id="faq" style="background: #f5f8fd;">
+      <div class="container">
+        <header class="section-header">
+          
+          <h6> Your Data</h6>
+        </header>
+        <div style='margin-top: 20px'>
+        	&nbsp;
+        </div>
+
+       
+     
+        <input type="hidden" name='fieldIDs' value={{fieldIDS}}></input>
+       	<div class='alternate_rows'> 
+        {% for userDataField in userData%}
+           	<div class='question_row'>        
+            	<h6><b>{{userDataField.field.field_description}} </b></h6>
+            	
+		            <div>	              
+		                	{{userDataField.field_text}}                
+		            </div>
+	            
+          	</div>
+
+          {% endfor%}
+
+       	</div>
+
+
+        
+    
+
+
+      </div>
+     
+    </section><!-- #faq -->
+
  {% endblock %}
