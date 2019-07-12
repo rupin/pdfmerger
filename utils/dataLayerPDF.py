@@ -90,8 +90,9 @@ def addText(FieldData, FormData):
 
 	
 	my_canvas.save()
-	#pdf = buffer.getvalue()	
-		
+	pdf = buffer.getvalue()	
+	
+	return pdf	
 	baseLayerTempFile=downloadFile(FormData.file_path.url)
 	
 	EmptyForm = PdfFileReader(baseLayerTempFile)

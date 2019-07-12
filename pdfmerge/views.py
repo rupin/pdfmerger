@@ -230,7 +230,7 @@ def fillForm(request, pdfid):
 	dataSet=combinedDF.to_dict('records')
 	
 
-	print(dataSet)
+	#print(dataSet)
 	#Use the dataset as input to generate the pdf, recieve a buffer as reponse 
 	pdfData=dataLayerPDF.addText(dataSet,formData)
 	# #output=dataLayerPDF.mergePDFs()
@@ -242,8 +242,8 @@ def fillForm(request, pdfid):
 	#response.write(PDFBytes)
 
 	#write the pdfdata to the responseobject
-	pdfData.write(response)
-	
+	#pdfData.write(response)
+	response.write(pdfData)
 
 	#return the response 
 	return response
