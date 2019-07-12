@@ -24,8 +24,8 @@ def copy_filelike_to_filelike(src, dst, bufsize=16384):
 		dst.write(buf)
 
 def formatFieldTextByChoice(field):
-	#fieldChoice=field.get("field__field_display")
-	print("fieldChoice:"+fieldChoice)
+	fieldChoice=field.get("field__field_display")
+	#print("fieldChoice:"+fieldChoice)
 	if(fieldChoice=='NONE'):
 		fieldText=field.get("field_text").upper()
 	elif(fieldChoice=='FULLDATE'):
@@ -91,9 +91,9 @@ def addText(FieldData, FormData):
 
 	
 	my_canvas.save()
-	pdf = my_buffer.getvalue()	
+	#pdf = my_buffer.getvalue()	
 	
-	return pdf	
+	#return pdf	
 	baseLayerTempFile=downloadFile(FormData.file_path.url)
 	
 	EmptyForm = PdfFileReader(baseLayerTempFile)
