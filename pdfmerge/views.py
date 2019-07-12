@@ -221,7 +221,9 @@ def fillForm(request, pdfid):
 	
 	#Set the httpresponse to download a pdf
 	response = HttpResponse(content_type='application/pdf')
-	response['Content-Disposition'] = 'inline; filename="dataLayer.pdf"'
+	timestamp=datetime.datetime.now().strftime("%d-%m-%Y-%I-%M-%S")
+	filename=formData.pdf_name +"-"+request.user.first_name+"-" + str(timestamp) +".pdf"
+	response['Content-Disposition'] = 'attachment; filename= "%s"' % filename
 	#response.write(PDFBytes)
 
 	#write the pdfdata to the responseobject
