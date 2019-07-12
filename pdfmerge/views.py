@@ -106,7 +106,7 @@ def addFormToProfile(request,form_id):
 	#dataSet=combinedDF.sort_values(by=['field_page_number']).to_dict('records')
 
 
-	#dprint.dprint(combinedDF)
+	dprint.dprint(combinedDF)
 	
 	missingQuestionsList=combinedDF[combinedDF["field__field_state"]=='DYNAMIC']
 	missingQuestionsList.fillna(value='',inplace=True)
