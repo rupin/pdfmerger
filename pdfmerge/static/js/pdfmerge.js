@@ -1,5 +1,5 @@
 $( document ).ready(function() {
-    $( ".datefield" ).datepicker({dateFormat:"d MM, yy", showButtonPanel: true});
+    $( ".datefield" ).datepicker({dateFormat:"MM d, yy", showButtonPanel: true});
     //console.log("attached");
 });
     

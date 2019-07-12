@@ -25,24 +25,28 @@ def copy_filelike_to_filelike(src, dst, bufsize=16384):
 
 def formatFieldTextByChoice(field):
 	fieldChoice=field.get("field__field_display")
-	#print("fieldChoice:"+fieldChoice)
+	print(field)
 	if(fieldChoice=='NONE'):
 		fieldText=field.get("field_text").upper()
 	elif(fieldChoice=='FULLDATE'):
-		dateTimeObj = field.get("field_date")
-		fieldText=dateTimeObj.strftime("%d %m %Y") #Formats to the date 11 10 1984			
+		fieldText = field.get("field_text")
+		dateObject=datetime.strptime(fieldText,"%B %d, %Y") # accept date as string in a certain format
+		fieldText=dateObject.strftime("%d %m %Y")	# convert it to what is required													#Formats to the date 11 10 1984			
 	elif(fieldChoice=='DATE'):
-		dateTimeObj = field.get("field_date")
-		fieldText=dateTimeObj.strftime("%d")	
+		fieldText = field.get("field_text")
+		dateObject=datetime.strptime(fieldText,"%B %d, %Y")	
+		fieldText=dateObject.strftime("%Y")
 	elif(fieldChoice=='MONTH'):
-		dateTimeObj = field.get("field_date")
-		fieldText=dateTimeObj.strftime("%m")	
+		fieldText = field.get("field_text")
+		dateObject=datetime.strptime(fieldText,"%B %d, %Y")	
+		fieldText=dateObject.strftime("%Y")
 	elif(fieldChoice=='YEAR'):
-		dateTimeObj = field.get("field_date")
-		fieldText=dateTimeObj.strftime("%Y")
+		fieldText = field.get("field_text")
+		dateObject=datetime.strptime(fieldText,"%B %d, %Y")
+		fieldText=dateObject.strftime("%Y")
 	elif(fieldChoice=='FULLDATE_TEXT_MONTH'):
-		dateTimeObj = field.get("field_date")
-		fieldText=dateTimeObj.strftime("%d %B %Y")		# formats the date as 16 June 1984 
+		fieldText = field.get("field_text") # date is formatted as June 16, 2019
+		
 	else:
 		fieldText=''
 
@@ -71,7 +75,7 @@ def addText(FieldData, FormData):
 		
 		
 
-
+		print(field)
 		fieldText=formatFieldTextByChoice(field)
 		for letter in fieldText:
 			textobject = my_canvas.beginText()

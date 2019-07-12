@@ -5,6 +5,8 @@ from django.conf import settings
 from django.shortcuts import redirect
 from utils import dataLayerPDF
 from utils import dprint
+from utils import modelUtils
+
 import pandas as pd
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -81,15 +83,14 @@ def addFormToProfile(request,form_id):
 	#get all fields Related to User in UserProfile and that match the fields in the PDFForm
 	userFields=UserProfile.objects.filter(user=loggedUserID).values_list(
 																	"field", 
-																	"field_text",
-																	"field_date",																	
+																	"field_text",																																		
 																	named=True
 																	)
-	#dprint.dprint(queryset)
-
-	#Set the column as index on which the join is to be made in pandas
 	#print(userFields)
 	#print(fieldsinPDF)
+
+	#Set the column as index on which the join is to be made in pandas
+	
 	userFieldDF=pd.DataFrame(list(userFields)).set_index('field')
 	PDFFieldsDF=pd.DataFrame(list(fieldsinPDF)).set_index('field')
 
@@ -138,40 +139,23 @@ def addFormToProfile(request,form_id):
 @login_required
 @require_http_methods(["POST"])
 def saveDynamicFieldData(request,pdfid):
-	defaultDate=datetime.date(1987, 6,15)
+	
 	recievedDateFormat=""
-	fieldIDList=request.POST["fieldIDs"].split(",")
-	for field in fieldIDList:
-		fieldValue=request.POST[field]
-		fieldObject=Field.objects.get(id=field)
-		userProfile=UserProfile.objects.filter(user=request.user,field=fieldObject)
-		#PDFFormFieldObject=PDFFormField.objects.filter(pdf=pdfid,field=fieldObject).values("field_choice")
-		#print(PDFFormFieldObject)
-		field_display=fieldObject.field_display
-		#print(fieldValue)
-		userProfileExists=userProfile.count()
-		if(userProfileExists==1): # The User Profile Exists
-			#if(fieldObject.)
-			if(field_display=="FULLDATE"):
-				#fieldDate=datetime.datetime.strptime(fieldValue, '%d %B, %Y').date()
-				fieldDate=parse(fieldValue).date()
-				print(fieldDate)
-				#fieldDate=timestring.Date(fieldValue).date
-				#print(fieldDate)
-				userUpdateStatus=userProfile.update(field_text="", field_date=fieldDate)
-			else:
-				userUpdateStatus=userProfile.update(field_text=fieldValue, field_date=defaultDate)
-				
-		else:
-			if(field_display=="FULLDATE"):
-				#fieldDate=datetime.datetime.strptime(fieldValue, '%d %B, %Y').date()
-				#fieldDate=timestring.Date(fieldValue).date
-				fieldDate=parse(fieldValue).date()
-				userCreatestatus=UserProfile(user=request.user,field=fieldObject, field_text="", field_date=temp_date)
-				userCreatestatus.save()
-			else:	
-				userCreatestatus=UserProfile(user=request.user,field=fieldObject, field_text=fieldValue,field_date=defaultDate)
-				userCreatestatus.save()
+	fieldIDs=request.POST["fieldIDs"]
+	fieldIDList=[]
+	fieldData=[]
+	
+	if(fieldIDs is not None):
+		fieldIDList=fieldIDs.split(",")
+
+	for fieldID in fieldIDList:
+		fieldDict={}
+		fieldDict["ID"]=fieldID
+		fieldDict["userValue"]=request.POST[fieldID]
+		fieldData.append(fieldDict)
+
+	print(fieldData)
+	modelUtils.saveUserProfileFields(fieldData, request.user)	
 
 
 	
@@ -208,8 +192,7 @@ def fillForm(request, pdfid):
 	#get all fields Related to User in UserProfile and that match the fields in the PDFForm
 	userFields=UserProfile.objects.filter(user=loggedUserID).values_list(
 																	"field", 
-																	"field_text",
-																	"field_date",																	
+																	"field_text",																																	
 																	named=True
 																	)
 	#dprint.dprint(queryset)
