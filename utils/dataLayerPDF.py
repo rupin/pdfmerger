@@ -24,7 +24,7 @@ def copy_filelike_to_filelike(src, dst, bufsize=16384):
 		dst.write(buf)
 
 def formatFieldTextByChoice(field):
-	fieldChoice=field.get("field__field_display")
+	#fieldChoice=field.get("field__field_display")
 	print("fieldChoice:"+fieldChoice)
 	if(fieldChoice=='NONE'):
 		fieldText=field.get("field_text").upper()
@@ -46,7 +46,7 @@ def formatFieldTextByChoice(field):
 	else:
 		fieldText='abcd'
 
-	print("fieldText:"+fieldText)	
+	#print("fieldText:"+fieldText)	
 
 	return fieldText	
 
