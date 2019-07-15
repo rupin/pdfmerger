@@ -17,7 +17,7 @@ class PDFFormAdmin(ImportExportModelAdmin):
 
 class PDFFormFieldAdmin(ImportExportModelAdmin):
 	model=PDFFormField
-	list_display=['pdf', "field"]
+	list_display=['pdf', "field", "field_page_number","field_index"]
 
 class UserProfileAdmin(ImportExportModelAdmin):
 	model=UserProfile
@@ -25,7 +25,7 @@ class UserProfileAdmin(ImportExportModelAdmin):
 
 class FieldAdmin(ImportExportModelAdmin):
     model=Field
-    list_display=['id', "field_description",'field_question']   	
+    list_display=['id', "field_description",'field_question', 'category', 'category_order']   	
     
   
 

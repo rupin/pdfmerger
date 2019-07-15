@@ -46,8 +46,20 @@ class Field(models.Model):
 					)
 
 	field_display = models.CharField(max_length=20,choices=FIELD_CHOICES,default="NONE")
+
+	FIELD_CATEGORY_CHOICES = (
+						('PERSONAL', 'Personal'),
+						('DOCUMENT', 'Document'),
+						('ADDRESS', 'Address'),
+						
+						
+					)
+	category= models.CharField(max_length=20,choices=FIELD_CATEGORY_CHOICES,default="PERSONAL")
+	category_order= models.IntegerField(default=0)
 	def __str__(self):
 		return self.field_description
+	class Meta:
+		ordering= ("category", "category_order", "field_description")
 	
 	
 #class relates form field id with PDF ID, a pdf can have multiple fields of same kind. 
@@ -60,10 +72,10 @@ class PDFFormField(models.Model):
 	field_y=models.DecimalField(max_digits=6,decimal_places=2,default=0)
 	field_x_increment=models.DecimalField(max_digits=6,decimal_places=2,default=0)
 	font_size=models.IntegerField(default=12)   
-
+	field_index=models.IntegerField(default=0) 
 	class Meta:
-		ordering= ("field_page_number",)
-
+		ordering= ("field_page_number","field_index")
+	
 
 
     
@@ -71,11 +83,11 @@ class PDFFormField(models.Model):
 class UserProfile(models.Model):
 	#pass	
 	user=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,default=0)
-	field=models.ForeignKey(Field, on_delete=models.CASCADE,default=0)
+	field=models.ForeignKey(Field, on_delete=models.CASCADE,default=0)	
 	field_text=models.CharField(max_length=200,default='')
 	field_date=models.DateField(null=True)
 	class Meta:
-		unique_together = ('user', 'field',)
+		unique_together = ('user', 'field')
 	
 #class has reference to all pdfs users have generated/requested
 class GeneratedPDF(models.Model):

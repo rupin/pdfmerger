@@ -26,7 +26,8 @@
        	<div class='alternate_rows'> 
         {% for question in missingQuestions%}
            	<div class='question_row'>        
-            	<h6><b>Q. {{question.field__field_question}} </b></h6>
+            	<h5><b>{{question.field__field_description}} </b></h5>
+              <h6>Q. {{question.field__field_question}}</h6>
             	{% ifequal question.field__field_display 'FULLDATE' %}
 		            <div>	              
 		                A. <input type="text" size="40" name="{{question.field}}" value='{{question.field_text}}' class='datefield'>

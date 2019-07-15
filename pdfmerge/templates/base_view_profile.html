@@ -7,7 +7,7 @@
 
 {% block team %}
   
-    <section id="team" class="section-bg" style="padding:200px 0px" >
+    <section id="team" class="section-bg" style="padding-top:200px" >
       <div class="container">
         <div class="section-header">
           <h3>Forms available in your profile</h3>
@@ -43,19 +43,19 @@
 {% endblock %}
 
 
-{% block user_info %}
+{% block header %}
     
-{% include "profilelink.html" %}
+{% include "header.html" %}
 
  {% endblock %}  
 
  {% block additional_questions %}
 	<section id="faq" style="background: #f5f8fd;">
       <div class="container">
-        <header class="section-header">
-          
-          <h6> Your Data</h6>
-        </header>
+      	<div class="section-header">
+          <h3>Your Data with Us</h3>
+        </div>
+        
         <div style='margin-top: 20px'>
         	&nbsp;
         </div>
@@ -66,13 +66,16 @@
        	<div class='alternate_rows'> 
         {% for userDataField in userData%}
            	<div class='question_row'>        
-            	<h6><b>{{userDataField.field.field_description}} </b></h6>
+            	<h5><b>{{userDataField.field.field_description}} </b></h5>
+            	<h6>{{userDataField.field.field_question}}</h6>
             	
 		            <div>	              
-		                	{{userDataField.field_text}}                
+		                	<span>{{userDataField.field_text}}</span>		                	
+		                	<span> &nbsp;<a href="#" title='Edit'><i class="fa fa-pencil"></i></a></span>                
 		            </div>
 	            
           	</div>
+
 
           {% endfor%}
 
@@ -88,3 +91,9 @@
     </section><!-- #faq -->
 
  {% endblock %}
+
+ {%block footer%}
+
+ {% include "footer.html" %}
+
+ {%endblock%}

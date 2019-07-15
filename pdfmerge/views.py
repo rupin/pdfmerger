@@ -76,7 +76,8 @@ def addFormToProfile(request,form_id):
 																	"field",																
 																	"field__field_display",
 																	"field__field_question",
-																	"field__field_state",																	
+																	"field__field_state",
+																	"field__field_description",																
 																	 named=True
 																	 )
 	
@@ -156,9 +157,6 @@ def saveDynamicFieldData(request,pdfid):
 
 	print(fieldData)
 	modelUtils.saveUserProfileFields(fieldData, request.user)	
-
-
-	
 	return redirect('/viewPDF/'+str(pdfid))
 
     
@@ -171,46 +169,7 @@ def logoutUser(request):
 @login_required
 def fillForm(request, pdfid):
 
-	loggedUserID=request.user.id
-	#pdfid=pdf_id
-
-	#get details about the form
-	formData=PDFForm.objects.get(id=pdfid)
-	
-	#get all fields in PDF related to PDFID
-	fieldsinPDF=PDFFormField.objects.filter(pdf=pdfid).values_list(
-																	"field",
-																	"field_x",
-																	"field_page_number",
-																	"field_y",
-																	"field_x_increment",
-																	"field__field_display",
-																	"font_size",
-																	 named=True 
-																	 )
-	
-	#get all fields Related to User in UserProfile and that match the fields in the PDFForm
-	userFields=UserProfile.objects.filter(user=loggedUserID).values_list(
-																	"field", 
-																	"field_text",																																	
-																	named=True
-																	)
-	#dprint.dprint(queryset)
-
-	#Set the column as index on which the join is to be made in pandas
-	#print(userFields)
-	userFieldDF=pd.DataFrame(list(userFields)).set_index('field')
-	PDFFieldsDF=pd.DataFrame(list(fieldsinPDF)).set_index('field')
-	
-	#Make the Join
-	combinedDF=userFieldDF.join(PDFFieldsDF, on='field',lsuffix='_left', rsuffix='_right')
-	combinedDF.sort_values(by=['field_page_number'],inplace=True)
-	#
-	#remove rows with NA Values. Will happen when the number of rows in the above datasets differ in count. 
-	combinedDF.dropna(0,inplace=True)
-	#dprint.dprint(combinedDF)
-	#sort the Dataframe by Field Page Number, then convert it to a list of dictionaries
-	dataSet=combinedDF.to_dict('records')
+	dataSet, formData=modelUtils.getUserFormData(request, pdfid)
 	
 
 	#print(dataSet)
@@ -223,7 +182,7 @@ def fillForm(request, pdfid):
 	response = HttpResponse(content_type='application/pdf')
 	timestamp=datetime.datetime.now().strftime("%d-%m-%Y-%I-%M-%S")
 	filename=formData.pdf_name +"-"+request.user.first_name+"-" + str(timestamp) +".pdf"
-	response['Content-Disposition'] = 'attachment; filename= "%s"' % filename
+	response['Content-Disposition'] = 'inline; filename= "%s"' % filename
 	#response.write(PDFBytes)
 
 	#write the pdfdata to the responseobject
@@ -244,7 +203,10 @@ def profile(request):
 	# 																		)
 	userForms=GeneratedPDF.objects.filter(user=request.user).prefetch_related("pdf")
 	#print(userForms)
-	userData=UserProfile.objects.filter(user=request.user).prefetch_related("field").order_by("field__field_description")
+	userData=UserProfile.objects.filter(user=request.user).prefetch_related("field").order_by(
+																		"field__category",
+																		"field__category_order",
+																		"field__field_description")
 																		
 	#print(userData)
 	template = loader.get_template('base_view_profile.html')
@@ -254,3 +216,24 @@ def profile(request):
 	}
 	#print(context)
 	return HttpResponse(template.render(context, request))	
+
+
+@login_required
+def editPDFLive(request, pdfid):
+
+	userFormsCount=GeneratedPDF.objects.filter(user=request.user, pdf=pdfid).count()
+	if(userFormsCount==0):
+		return HttpResponse("Not found");
+
+	dataSet, formData=modelUtils.getUserFormData(request, pdfid)
+	
+
+	#dprint.dprint(fieldsinPDF)
+	context = {
+		
+		"userFormDataSet":dataSet,
+		"formData": formData
+		
+	}
+	template = loader.get_template('editPDF.html')
+	return HttpResponse(template.render(context, request))

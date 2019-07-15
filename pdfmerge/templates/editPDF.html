@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block side-question-tray %}
+
+ <section id="side_tray" class="section-bg" style="padding-top:150px">
+      <div class="custom_row">
+  		<div class="column14 alternate_rows">
+  			{%for userData in userFormDataSet %}
+
+  			<div>
+  					<div class=question_description><b>{{userData.field__field_description}}</b></div> 
+  					<div class='question_data'>{{userData.field_text}}</div>
+  				</div>
+  			{%endfor%}
+  		</div>
+  		<div class="column34 bordergray">
+  			<iframe src="/viewPDF/1" width="100%" height='100%' scrolling="true"></iframe>
+  		</div>
+	  </div>
+    </section><!-- #team -->
+
+
+{% endblock%}
+
+{% block pdf_iframe %}
+
+{% endblock %}
+
+{% block header %}
+    
+{% include "header.html" %}
+
+{% endblock %}   
+
+
+
+
+

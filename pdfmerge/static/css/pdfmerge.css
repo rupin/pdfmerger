@@ -6,12 +6,13 @@
 
 div.alternate_rows
 {
-	padding-bottom:20px;
+	margin-bottom:20px;
 	
 }
 div.alternate_rows > div
 {
-  border-bottom: 3px dotted #FFFFFF;
+  border-bottom: 1px solid #FFFFFF;
+  padding:5px;
 }
 div.alternate_rows > div:nth-of-type(odd) {
     background: #e0e0e0;
@@ -44,4 +45,49 @@ div.user_info
   text-align:center;
   
   
+}
+.column14 {
+  float: left;
+  width: 25%;
+  height: 100%;
+  overflow:scroll;
+}
+.column34 {
+  float: left;
+  width: 75%;
+  height: 100%;
+  overflow:scroll;
+}
+
+/* Clear floats after the columns */
+.custom_row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.custom_row
+{
+  padding-left:20px;
+  
+  height:500px;
+}
+.borderblack{
+  /*border:1px solid #000000;*/
+  
+}
+.bordergray{
+  /*border: 1px solid #CCCCCC;*/
+}
+
+.column34 >iframe
+{
+  width: 100%; height: 100%; border: none; margin: 0; padding: 0; display: block;
+}
+.question_description
+{
+  font-size:18px;
+}
+.question_data
+{
+  font-size: 14px
 }

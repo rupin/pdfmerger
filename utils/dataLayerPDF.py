@@ -25,7 +25,7 @@ def copy_filelike_to_filelike(src, dst, bufsize=16384):
 
 def formatFieldTextByChoice(field):
 	fieldChoice=field.get("field__field_display")
-	print(field)
+	#print(field)
 	if(fieldChoice=='NONE'):
 		fieldText=field.get("field_text").upper()
 	elif(fieldChoice=='FULLDATE'):
@@ -75,7 +75,7 @@ def addText(FieldData, FormData):
 		
 		
 
-		print(field)
+		#print(field)
 		fieldText=formatFieldTextByChoice(field)
 		for letter in fieldText:
 			textobject = my_canvas.beginText()
@@ -120,16 +120,7 @@ def addText(FieldData, FormData):
 				output.addPage(formPage)
 	#baseLayerTempFile.close()
 	return output			
-	# with open("join.pdf", "wb") as outputStream:
-	# 	output.write(outputStream)
-	# return "join.pdf"
-
-# def downloadFile(webFilePath):
-# 	with NamedTemporaryFile(delete=False) as tf:
-# 		r = requests.get(webFilePath, stream=True)
-# 		for chunk in r.iter_content(chunk_size=4096):
-# 			tf.write(chunk)
-# 	return tf
+	
 
 def downloadFile(webFilePath):
 	# with NamedTemporaryFile(delete=False) as tf:
