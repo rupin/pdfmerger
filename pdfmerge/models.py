@@ -83,7 +83,7 @@ class PDFFormField(models.Model):
 class UserProfile(models.Model):
 	#pass	
 	user=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,default=0)
-	field=models.ForeignKey(Field, on_delete=models.CASCADE,default=0)	
+	field=models.ForeignKey(Field, on_delete=models.CASCADE,default=11)	
 	field_text=models.CharField(max_length=200,default='')
 	field_date=models.DateField(null=True)
 	class Meta:

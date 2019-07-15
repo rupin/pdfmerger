@@ -15,13 +15,13 @@ div.alternate_rows > div
   padding:5px;
 }
 div.alternate_rows > div:nth-of-type(odd) {
-    background: #e0e0e0;
+    background: #FFFFFF;
     
 
 }
 div.alternate_rows > div:nth-of-type(even) {
-    background: #999999;
-    color:#FFFFFF
+    background: ##f5f8fd;
+    
    
     
 }
