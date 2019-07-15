@@ -119,6 +119,8 @@ def addText(FieldData, FormData):
 				formPage=EmptyForm.getPage(emptyPagesIndex)
 				output.addPage(formPage)
 	#baseLayerTempFile.close()
+	
+	#output.addMetadata("Title", "Hello")
 	return output			
 	
 

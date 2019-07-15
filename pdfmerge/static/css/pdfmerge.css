@@ -7,15 +7,17 @@
 div.alternate_rows
 {
 	margin-bottom:20px;
+  border :1px solid #CCCCCC;
 	
 }
 div.alternate_rows > div
 {
-  border-bottom: 1px solid #FFFFFF;
+  border-bottom: 1px solid #CCCCCC;
   padding:5px;
 }
 div.alternate_rows > div:nth-of-type(odd) {
     background: #FFFFFF;
+
     
 
 }

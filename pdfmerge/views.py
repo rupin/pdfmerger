@@ -157,7 +157,7 @@ def saveDynamicFieldData(request,pdfid):
 
 	print(fieldData)
 	modelUtils.saveUserProfileFields(fieldData, request.user)	
-	return redirect('/viewPDF/'+str(pdfid))
+	return redirect('/editPDF/'+str(pdfid))
 
     
 
@@ -177,11 +177,19 @@ def fillForm(request, pdfid):
 	pdfData=dataLayerPDF.addText(dataSet,formData)
 	# #output=dataLayerPDF.mergePDFs()
 
+	timestamp=datetime.datetime.now().strftime("%d-%m-%Y-%I-%M-%S")
+	filename=formData.pdf_name +"-"+request.user.first_name+"-" + str(timestamp) +".pdf"
+	metaData = {
+             
+             '/Title': filename,
+             
+             }
+
+	pdfData.addMetadata(metaData)
 	
 	#Set the httpresponse to download a pdf
 	response = HttpResponse(content_type='application/pdf')
-	timestamp=datetime.datetime.now().strftime("%d-%m-%Y-%I-%M-%S")
-	filename=formData.pdf_name +"-"+request.user.first_name+"-" + str(timestamp) +".pdf"
+	
 	response['Content-Disposition'] = 'inline; filename= "%s"' % filename
 	#response.write(PDFBytes)
 
