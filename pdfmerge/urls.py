@@ -24,14 +24,19 @@ from django.views.generic.base import TemplateView # new
 urlpatterns = [
     path('admin/', admin.site.urls),
 	path('', views.homePage, name='home'),
-	path('login/', views.loginForm, name='login'),
-    path('logout/', views.logoutUser, name='logout'),
-	path('loginAuth/', views.loginUser, name='loginsubmit'),
+	# path('login/', views.loginForm, name='login'),
+ #    path('logout/', views.logoutUser, name='logout'),
+	# path('loginAuth/', views.loginUser, name='loginsubmit'),
     path('viewPDF/<int:pdfid>', views.fillForm, name='fillform'),
     path('systemForms/', views.viewSystemForms, name='systemForms'),
     path('addForm/<int:form_id>', views.addFormToProfile, name='systemForms'),
     path('saveDynamicData/<int:pdfid>', views.saveDynamicFieldData, name='saveDynamicData'),
     path('profile/', views.profile, name='profile'),
     path('editPDF/<int:pdfid>', views.editPDFLive, name='profile')
+
+]
+
+urlpatterns += [
+    path('', include('django.contrib.auth.urls')),
 ]
 

@@ -16,14 +16,14 @@
 
       <div class="logo float-left">
         <!-- Uncomment below if you prefer to use an image logo -->
-        <h1 class="text-light"><a href="#intro" class="scrollto"><span>PDF Merger</span></a></h1>
+        <h1 class="text-light"><a href="/" class="scrollto"><span>PDF Merger</span></a></h1>
         <!-- <a href="#header" class="scrollto"><img src="img/logo.png" alt="" class="img-fluid"></a> -->
       </div>
-      <div class="float-right user_info" >
+      <div class="float-right user_info dropdown" >
         
            {% if not request.user.is_authenticated %}
               <div >
-               <a href="/login/">
+               <a href="login/">
                  <i class="fa fa-user-circle fa-3x"></i>
                 </a>
               </div>
@@ -36,17 +36,21 @@
                  <i class="fa fa-user-circle fa-3x"></i>
                 </a>
               </div>
-            <div style='align: center'><a href="/profile/">{{request.user.first_name}}</a></div>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{request.user.first_name}}</a>
+            <div class="dropdown-menu">
+                <a href="/profile/" class="dropdown-item">View/Edit Profile</a>
+               <a href="/logout" class="dropdown-item">Logout</a>
+           </div>
           {% endif %}
       </div>
 
       <nav class="main-nav float-right d-none d-lg-block">
         <ul>
-          <li class="active"><a href="#intro">Home</a></li>
-          <li><a href="#about">About Us</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#portfolio">Portfolio</a></li>
-          <li><a href="#team">Team</a></li>
+          <li class="active"><a href="/">Home</a></li>
+          <li><a href="/">Request a Form</a></li>
+         <!--  <li><a href="/">Services</a></li>
+          <li><a href="/">Portfolio</a></li>
+          <li><a href="/">Team</a></li> -->
 
           <!--<li class="drop-down"><a href="">Drop Down</a>
             <ul>

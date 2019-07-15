@@ -93,3 +93,24 @@ div.user_info
 {
   font-size: 14px
 }
+
+table.formtable
+{
+  width:100%;
+}
+tr.formTableRow 
+{
+  padding:10px;
+}
+
+td.formTableCell 
+{
+  padding:10px;
+}
+
+.borderdiv{
+border:1px solid #cccccc;
+padding:10px;
+}
+
+

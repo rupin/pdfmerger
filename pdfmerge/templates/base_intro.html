@@ -21,25 +21,9 @@
   </section><!-- #intro -->
 
   {% endblock %}
- {% block user_info %}
-  <div class="float-right user_info" >
-        
-           {% if not request.user.is_authenticated %}
-              <div >
-               <a href="/login/">
-                 <i class="fa fa-user-circle fa-3x"></i>
-                </a>
-              </div>
-             <div><a href="/login/">Login</a></div>
-          {% endif %}
-          {% if request.user.is_authenticated %}
+  
+ {% block header %}
+    
+{% include "header.html" %}
 
-              <div >
-               <a href="/profile/">
-                 <i class="fa fa-user-circle fa-3x"></i>
-                </a>
-              </div>
-            <div style='align: center'><a href="/profile/">{{request.user.first_name}}</a></div>
-          {% endif %}
-      </div>
-  {% endblock %}
+ {% endblock %} 
