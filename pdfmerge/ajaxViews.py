@@ -51,3 +51,23 @@ def saveEditedField(request):
 
 	return HttpResponse("OK")
 
+@login_required
+@require_http_methods(["POST"])
+def saveFormFieldSequence(request):
+	fieldIDs=request.POST["fieldData"]	
+	formID=request.POST['formID']
+	user=request.user
+
+	if(not formID.isdigit()):
+		return HttpResponse(status=500)
+
+	fieldIDList=fieldIDs.split(",")
+	index=0
+	for fieldID in fieldIDList:
+		PDFFormField.objects.filter(pdf=formID, field=int(fieldID)).update(field_index=index)
+		index=index+1
+
+	#print(fieldIDList)
+
+	return HttpResponse("OK")
+

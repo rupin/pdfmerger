@@ -246,3 +246,23 @@ def editPDFLive(request, pdfid):
 	}
 	template = loader.get_template('editPDF.html')
 	return HttpResponse(template.render(context, request))
+
+@login_required
+def arrangeFormQuestions(request, pdfid):
+	superUser=request.user.is_superuser
+	if(not superUser):
+		return HttpResponse(status=404)
+
+	FormFieldQueryset=PDFFormField.objects.filter(pdf=pdfid).prefetch_related('field')
+	context={
+
+		"formFields":FormFieldQueryset,
+		'formID':pdfid
+
+	}
+	print(context)
+
+	template = loader.get_template('arrangeFormQuestions.html')
+	return HttpResponse(template.render(context, request))
+
+		

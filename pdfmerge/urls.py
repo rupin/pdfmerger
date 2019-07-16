@@ -24,9 +24,7 @@ from django.views.generic.base import TemplateView # new
 urlpatterns = [
     path('admin/', admin.site.urls),
 	path('', views.homePage, name='home'),
-	# path('login/', views.loginForm, name='login'),
- #    path('logout/', views.logoutUser, name='logout'),
-	# path('loginAuth/', views.loginUser, name='loginsubmit'),
+	
     path('viewPDF/<int:pdfid>', views.fillForm, name='fillform'),
     path('systemForms/', views.viewSystemForms, name='systemForms'),
     path('addForm/<int:form_id>', views.addFormToProfile, name='systemForms'),
@@ -34,7 +32,9 @@ urlpatterns = [
     path('profile/', views.profile, name='profile'),
     path('editPDF/<int:pdfid>', views.editPDFLive, name='profile'),
     path('signup/', signupView.signup, name='signup'),
-    path('saveEditedField/', ajaxViews.saveEditedField, name='saveEditedField')
+    path('saveEditedField/', ajaxViews.saveEditedField, name='saveEditedField'),
+    path('arrangeFormQuestions/<int:pdfid>', views.arrangeFormQuestions, name='arrangeFormQuestions'),
+    path('saveFormFieldSequence/', ajaxViews.saveFormFieldSequence, name='saveFormFieldSequence')
 
 ]
 

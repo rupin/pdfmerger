@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block side-question-tray %}
+
+ <section  class="section-bg" style="padding-top:150px">
+ 	
+ 	<div class="section-header">
+          <h3>Available Questions</h3>
+          <p>Arrange Questions by dragging them</p>
+        </div>
+  <input type='hidden' name="csrfmiddlewaretoken" id='csrfmiddlewaretoken' value="{{csrf_token}}"/>
+  <input type='hidden' value={{formID}} id='formID'/>
+      <div class='container'>
+	      
+      				<div class='col alternate_rows sortable' id='field_rows'>
+	    			{%for formfield in formFields %}
+	      			
+	      					<div class="question_description row field_row" data-id={{formfield.field.id}}>
+	      						<b>{{formfield.field.field_description}}</b>
+
+	      					</div>  
+	                
+	     
+	    			{%endfor%}
+	    			</div>
+	    			<div id="savearrangement" class="button_blue">Save Arrangement </div>
+  </div> <!--Container -->
+    </section><!-- #team -->
+
+
+{% endblock%}
+
+{% block header %}
+    
+{% include "header.html" %}
+
+ {% endblock %}  
+
+ {% block page_specific_js %} 
+
+     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>    
+    <script src="{% static 'js/pdfmerge.js' %}"></script>
+    <script src="{% static 'js/editableField.js' %}"></script>
+
+{% endblock %}
+
+{% block page_specific_css %} 
+ <link href="{% static 'css/jquery-ui.min.css' %}" rel="stylesheet">
+
+   {% endblock %}
