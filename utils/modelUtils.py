@@ -1,10 +1,12 @@
 from pdfmerge.models import *
 from dateutil.parser import *
-import datetime
+from datetime import datetime
+import datetime as DT
 import pandas as pd
 
-def saveUserProfileFields(fieldList, p_user):
-	defaultDate=datetime.date(1987, 6,15)
+def saveUserProfileFields(fieldList, p_user, overwrite=True):
+	defaultDate=DT.date(1987, 6,15)
+	defaultDateString= "June 15, 1987"
 	for field in fieldList:
 		#print(field)
 		fieldValue=field.get("userValue")
@@ -15,13 +17,17 @@ def saveUserProfileFields(fieldList, p_user):
 		userProfileExists=userProfile.count()
 		if(field_display=="FULLDATE"):
 			#fieldDate=datetime.datetime.strptime(fieldValue, '%d %B, %Y').date()
+			if(fieldValue=="" or fieldValue is None):
+				fieldValue=defaultDateString
+			
 			fieldText=parse(fieldValue).date().strftime("%B %d, %Y")
 			#print(fieldText)
 		else:
 			fieldText=fieldValue
+
 		if(userProfileExists==1): # The User Profile Exists
-			
-			userUpdateStatus=userProfile.update(field_text=fieldText)
+			if(overwrite): # lag to prevent overwriting
+				userUpdateStatus=userProfile.update(field_text=fieldText)
 				
 		else:
 			
@@ -79,3 +85,19 @@ def getUserFormData(request, pdfid, dropNAValues=True):
 	print(dataSet)
 
 	return dataSet, formData
+
+
+def addFieldsToProfile(user,form):
+	formFields=PDFFormField.objects.filter(pdf=form).prefetch_related('field')	
+	fieldData=[]
+	for formField in formFields:
+
+		fieldDict={}
+		fieldDict["ID"]=formField.field.id
+		fieldValue= 'Not Set'
+		if(formField.field.field_display=="FULLDATE"):
+			fieldValue=datetime.now().strftime("%B %d, %Y")
+
+		fieldDict["userValue"]=fieldValue
+		fieldData.append(fieldDict)
+	saveUserProfileFields(fieldData,user, False)

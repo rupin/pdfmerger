@@ -68,7 +68,7 @@ def addFormToProfile(request,form_id):
 		addform=GeneratedPDF(user=UserObject, pdf=PDFormObject)
 		addform.save()
 	
-
+	modelUtils.addFieldsToProfile(UserObject, PDFormObject)
 
 	
 	#get all fields in PDF related to PDFID
