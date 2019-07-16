@@ -54,6 +54,12 @@ def saveEditedField(request):
 @login_required
 @require_http_methods(["POST"])
 def saveFormFieldSequence(request):
+	superUser=request.user.is_superuser
+	
+	if(not superUser):
+		return HttpResponse(status=404)
+
+
 	fieldIDs=request.POST["fieldData"]	
 	formID=request.POST['formID']
 	user=request.user
