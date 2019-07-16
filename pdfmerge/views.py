@@ -155,7 +155,7 @@ def saveDynamicFieldData(request,pdfid):
 		fieldDict["userValue"]=request.POST[fieldID]
 		fieldData.append(fieldDict)
 
-	print(fieldData)
+	#print(fieldData)
 	modelUtils.saveUserProfileFields(fieldData, request.user)	
 	return redirect('/editPDF/'+str(pdfid))
 

@@ -164,6 +164,9 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 #AWS_AUTO_CREATE_BUCKET =True
 #AWS_S3_REGION_NAME =os.environ.get("AWS_S3_REGION_NAME")
 LOGIN_URL = '/login/'
+# my_project/settings.py
+LOGIN_REDIRECT_URL = '/profile'
+LOGOUT_REDIRECT_URL = '/'
 IMPORT_EXPORT_USE_TRANSACTIONS = True
 
 DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'

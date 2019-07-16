@@ -117,7 +117,11 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/login/'
+# my_project/settings.py
+LOGIN_REDIRECT_URL = '/profile'
+LOGOUT_REDIRECT_URL = '/'
+
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 

@@ -8,45 +8,7 @@
   <section class="clearfix" style="padding-top:150px">
     <div class="container h-100">
       <div class="row justify-content-center align-self-center">
-
-         <div class="col-5 borderdiv">             
-              <h4>Create Account</h4>
-              <form method="post" action="{% url 'login' %}" class="contactForm">
-               {% csrf_token %}
-                <table class='formtable'>
-
-                <tr class='formTableRow'>
-                  <td class="formTableCell">{{ form.username.label_tag }}</td>
-                  <td class="formTableCell">{{ form.username }}</td>
-                </tr>
-
-                <tr>
-                  <td class="formTableCell">{{ form.password.label_tag }}</td>
-                  <td class="formTableCell">{{ form.password }}</td>
-                </tr>
-
-                <tr>
-                  <td class="formTableCell">&nbsp;</td>
-                  <td class="formTableCell"> 
-                    <input type="submit" title="Login" value="Login" class="button_blue">
-                  
-                    <input type="hidden" name="next" value="{{ next }}" />
-                  </td>
-                </tr>
-              </table>         
-
-                
-              </form>
-              
-              <p><a href="{% url 'password_reset' %}">Lost password?</a>
-              
-            
-        </div>
-       
-
-        <div class="col-1">&nbsp;</div>
-  
-         <div class="col-5 borderdiv">             
+        <div class="col-5 borderdiv">             
               <h4>Login</h4>
               <form method="post" action="{% url 'login' %}" class="contactForm">
                {% csrf_token %}
@@ -79,6 +41,35 @@
               
             
         </div>
+         
+       
+
+        <div class="col-1">&nbsp;</div>
+
+
+        <div class="col-5 borderdiv">             
+              <h4>Create Account</h4>
+             
+              
+                <table class='formtable'>
+               
+                <tr>
+                  <td class="formTableCell">&nbsp;</td>
+                  <td class="formTableCell"> 
+                    <a href='/signup'title="Sign Up" value="Sign Up" class="button_blue">Sign Up</input>              
+                    
+                  </td>
+                </tr>
+              </table>         
+
+                
+              
+              
+              
+            
+        </div>
+  
+         
 
     </div>
   </section><!-- #intro -->

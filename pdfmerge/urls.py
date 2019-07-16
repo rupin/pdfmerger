@@ -16,7 +16,7 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
-from . import views
+from . import views, signupView
 
 
 from django.views.generic.base import TemplateView # new
@@ -32,7 +32,8 @@ urlpatterns = [
     path('addForm/<int:form_id>', views.addFormToProfile, name='systemForms'),
     path('saveDynamicData/<int:pdfid>', views.saveDynamicFieldData, name='saveDynamicData'),
     path('profile/', views.profile, name='profile'),
-    path('editPDF/<int:pdfid>', views.editPDFLive, name='profile')
+    path('editPDF/<int:pdfid>', views.editPDFLive, name='profile'),
+    path('signup/', signupView.signup, name='signup')
 
 ]
 

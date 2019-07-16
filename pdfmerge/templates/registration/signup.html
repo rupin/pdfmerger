@@ -1,0 +1,87 @@
+{% extends "../base.html" %}
+
+
+{% load static %}
+
+{% block login-logout %}
+
+  <section class="clearfix" style="padding-top:150px">
+    <div class="container h-100">
+      <div class="row justify-content-center align-self-center">
+        <div class="col-5 borderdiv">             
+              <h4>Create Account</h4>
+              <form method="post" action="/signup/" class="contactForm">
+               {% csrf_token %}
+                <table class='formtable'>
+                {% for field in form %}
+                  <tr class='formTableRow'>
+                    <td class="formTableCell">{{ field.label_tag }}</td>
+                    <td class="formTableCell">{{ field }}</td>
+                  </tr>
+
+               {% endfor %}
+                <tr>
+                  <td class="formTableCell">&nbsp;</td>
+                  <td class="formTableCell"> 
+                    <input type="submit" title="Create Account" value="Create Account" class="button_blue">
+                  
+                    
+                  </td>
+                </tr>
+              </table>         
+
+                
+              </form>
+
+              
+              
+            
+        </div>
+         
+       
+
+        <div class="col-1">&nbsp;</div>
+
+        <div class="col-5 borderdiv">             
+            <h4>Sign Up Using</h4>
+
+            <table class='formtable'>
+                
+                <tr>
+                 
+                  <td class="formTableCell"> 
+                    <input type="submit" title="Google" value="Google" class="button_blue"/>
+                    
+                  
+                    
+                  </td>
+                   </tr>
+                    <tr>
+                  <td class="formTableCell"> 
+                    
+                    <input type="submit" title="Facebook" value="Facebook" class="button_blue"/>
+                  
+                    
+                  </td>
+               
+              </table>    
+
+              
+              
+            
+        </div>
+        
+  
+         
+
+    </div>
+  </section><!-- #intro -->
+
+ {%endblock%}
+
+
+ {% block header %}
+    
+{% include "header.html" %}
+
+ {% endblock %} 
