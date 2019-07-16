@@ -262,7 +262,7 @@ def arrangeFormQuestions(request, pdfid):
 	}
 	print(context)
 
-	template = loader.get_template('arrangeFormQuestions.html')
+	template = loader.get_template('rearrangeformquestions.html')
 	return HttpResponse(template.render(context, request))
 
 		
