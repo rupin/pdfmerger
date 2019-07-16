@@ -6,20 +6,39 @@
 {% block side-question-tray %}
 
  <section id="side_tray" class="section-bg" style="padding-top:150px">
-      <div class="custom_row">
-  		<div class="column14 alternate_rows">
-  			{%for userData in userFormDataSet %}
+  <input type='hidden' name="csrfmiddlewaretoken" id='csrfmiddlewaretoken' value="{{csrf_token}}"/>
+  <input type='hidden' value={{formID}} id='formID'/>
+      <div class='container'>
+      <div class="row justify-content-center align-self-center no-gutters">
+        
+    		<div class="col alternate_rows ">
 
-  			<div>
-  					<div class=question_description><b>{{userData.field__field_description}}</b></div> 
-  					<div class='question_data'>{{userData.field_text}}</div>
-  				</div>
-  			{%endfor%}
-  		</div>
-  		<div class="column34 bordergray">
-  			<iframe src="/viewPDF/{{formID}}" width="100%" height='100%' scrolling="true"></iframe>
-  		</div>
-	  </div>
+    			{%for userData in userFormDataSet %}
+
+      			<div class='container justify-content-center align-self-center'>
+      					<div class="question_description row"><b>{{userData.field__field_description}}</b></div> 
+      					<div class='question_data double-click-edit row'>
+                  {{userData.field_text}}
+                  
+                </div>
+                <div class='question_data_edit row'>
+                  <input type='text' data-id='{{userData.field}}' value='{{userData.field_text}}'/>
+                </div>
+                <div class='question_data_edit row' style='padding-top:5px'>
+                    <div class="button_blue saveEditField"> Save </div> 
+                    <div class="button_blue cancelEditField"> Cancel </div>
+                </div>
+               
+      				</div>
+    			{%endfor%}
+    		</div> <!-- column-->
+
+        <div class="col-9 bordergray">
+            <iframe src="/viewPDF/{{formID}}" width="100%" height='100%' scrolling="true"></iframe> 
+         </div>
+  		
+	  </div> <!--Row -->
+  </div> <!--Container -->
     </section><!-- #team -->
 
 
@@ -34,6 +53,12 @@
 {% include "header.html" %}
 
 {% endblock %}   
+
+{% block page_specific_js %} 
+    <script src="{% static 'lib/jqueryui/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'js/pdfmerge.js' %}"></script>
+    <script src="{% static 'js/editableField.js' %}"></script>
+{% endblock %}
 
 
 

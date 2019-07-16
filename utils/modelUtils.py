@@ -29,7 +29,7 @@ def saveUserProfileFields(fieldList, p_user):
 			userCreatestatus.save()
 
 
-def getUserFormData(request, pdfid):
+def getUserFormData(request, pdfid, dropNAValues=True):
 	loggedUserID=request.user.id
 	#pdfid=pdf_id
 
@@ -69,9 +69,13 @@ def getUserFormData(request, pdfid):
 	combinedDF.sort_values(by=['field_page_number', 'field_index'],inplace=True)
 	#
 	#remove rows with NA Values. Will happen when the number of rows in the above datasets differ in count. 
-	combinedDF.dropna(0,inplace=True)
+	if(dropNAValues):
+		combinedDF.dropna(0,inplace=True)
+
 	#dprint.dprint(combinedDF)
 	#sort the Dataframe by Field Page Number, then convert it to a list of dictionaries
+	combinedDF.reset_index(inplace=True)
 	dataSet=combinedDF.to_dict('records')
+	print(dataSet)
 
 	return dataSet, formData

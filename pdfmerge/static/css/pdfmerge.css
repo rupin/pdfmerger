@@ -13,7 +13,8 @@ div.alternate_rows
 div.alternate_rows > div
 {
   border-bottom: 1px solid #CCCCCC;
-  padding:5px;
+
+  
 }
 div.alternate_rows > div:nth-of-type(odd) {
     background: #FFFFFF;
@@ -87,11 +88,21 @@ div.user_info
 }
 .question_description
 {
-  font-size:18px;
+  font-size:16px;
+  padding:5px;
 }
 .question_data
 {
-  font-size: 14px
+  font-size: 15px;
+  cursor:pointer;
+  text-decoration:underline;
+  padding:5px;
+}
+.question_data_edit
+{
+  font-size: 14px;
+  display:none;
+  padding:5px;
 }
 
 table.formtable
@@ -109,8 +120,8 @@ td.formTableCell
 }
 
 .borderdiv{
-border:1px solid #cccccc;
-padding:10px;
+  border:1px solid #cccccc;
+  padding:10px;
 }
 
 
