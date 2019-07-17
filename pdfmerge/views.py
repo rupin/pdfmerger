@@ -132,7 +132,7 @@ def addFormToProfile(request,form_id):
 		'fieldIDS':fieldIDStr
 	}
 	#dprint.dprint(missingQuestionsList)
-	print(context)
+	#print(context)
 	template = loader.get_template('process_form.html')
 	return HttpResponse(template.render(context, request))
 		
@@ -246,6 +246,7 @@ def editPDFLive(request, pdfid):
 		'formID':pdfid
 		
 	}
+	#print(formData)
 	template = loader.get_template('editPDF.html')
 	return HttpResponse(template.render(context, request))
 
@@ -262,7 +263,7 @@ def arrangeFormQuestions(request, pdfid):
 		'formID':pdfid
 
 	}
-	print(context)
+	#print(context)
 
 	template = loader.get_template('rearrangeformquestions.html')
 	return HttpResponse(template.render(context, request))
