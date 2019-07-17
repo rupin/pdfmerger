@@ -50,8 +50,8 @@
                 <tr>
                  
                   <td class="formTableCell"> 
-                    <div class="g-signin2" data-onsuccess="onSignIn"></div>                 
-                  
+                    <!-- <div id="my-signin2" class="g-signin2" data-onsuccess="onSignIn"></div>                  -->
+                     <input type="submit" title="Google" value="Google" class="button_blue"/>
                     
                   </td>
                    </tr>
@@ -87,7 +87,7 @@
 
  {% block page_specific_js %} 
 
-     <script src="https://apis.google.com/js/platform.js" async defer></script>
+     <!-- <script src="https://apis.google.com/js/platform.js" async defer></script>
      <script language="javascript">
       function onSignIn(googleUser) {
         var profile = googleUser.getBasicProfile();
@@ -96,13 +96,24 @@
         console.log('Image URL: ' + profile.getImageUrl());
         console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
       }
-     </script>
+
+      function renderButton() {
+      gapi.signin2.render('my-signin2', {
+        'scope': 'profile email',
+        'width': 240,
+        'height': 50,
+        'longtitle': true,
+        'theme': 'dark',
+        'onsuccess': onSuccess,
+        'onfailure': onFailure
+      });
+     </script> -->
 
 {% endblock %}
 
 {% block page-meta %} 
 
-     <meta name="google-signin-client_id" content="975301356530-qfa80s5a1vl00lgjmukg0p1tugck21h3.apps.googleusercontent.com">
+     <!-- <meta name="google-signin-client_id" content="975301356530-qfa80s5a1vl00lgjmukg0p1tugck21h3.apps.googleusercontent.com"> -->
 
 
 {% endblock %}
