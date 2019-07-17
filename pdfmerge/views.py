@@ -215,12 +215,14 @@ def profile(request):
 																		"field__category",
 																		"field__category_order",
 																		"field__field_description")
+	formsCount=userForms.count()
 																		
 	#print(userData)
 	template = loader.get_template('base_view_profile.html')
 	context = {
 		"systemforms":userForms,
-		"userData":userData,		
+		"userData":userData,
+		"formcount":formsCount		
 	}
 	#print(context)
 	return HttpResponse(template.render(context, request))	

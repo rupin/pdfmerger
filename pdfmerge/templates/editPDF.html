@@ -3,12 +3,20 @@
 {% load static %}
 
 
+
+
 {% block side-question-tray %}
 
  <section id="side_tray" class="section-bg" style="padding-top:150px">
   <input type='hidden' name="csrfmiddlewaretoken" id='csrfmiddlewaretoken' value="{{csrf_token}}"/>
   <input type='hidden' value={{formID}} id='formID'/>
       <div class='container'>
+         <header class="section-header">
+          <h3>Edit your PDF</h3>
+          
+          <h6>The section on the left shows fields for your PDF. Click on the field data to edit it.</h6>
+          <h6>The section on the right shows your generated PDF</h6>
+        </header>
       <div class="row justify-content-center align-self-center no-gutters">
         
     		<div class="col alternate_rows ">
