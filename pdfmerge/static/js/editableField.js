@@ -56,6 +56,12 @@ $(".cancelEditField").bind('click', function(){
 	
 
 });
+$("#refreshbutton").bind("click", function(){
+
+	$("iframe").attr( 'src', function ( i, val ) { return val; });
+})
+
+
 
 
 function saveFieldEdit(data)

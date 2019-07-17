@@ -30,7 +30,11 @@
                   
                 </div>
                 <div class='question_data_edit row'>
-                  <input type='text' data-id='{{userData.field}}' value='{{userData.field_text}}'/>
+                  {% ifequal question.field__field_display 'FULLDATE' %}
+                      <input type='text' data-id='{{userData.field}}' value='{{userData.field_text}}' class='datefield'/>
+                  {% else %}
+                      <input type='text' data-id='{{userData.field}}' value='{{userData.field_text}}'/>
+                  {%endifequal%}    
                 </div>
                 <div class='question_data_edit row' style='padding-top:5px'>
                     <div class="button_blue saveEditField"> Save </div> 
@@ -41,8 +45,19 @@
     			{%endfor%}
     		</div> <!-- column-->
 
-        <div class="col-9 bordergray">
-            <iframe src="/viewPDF/{{formID}}" width="100%" height='100%' scrolling="true"></iframe> 
+        <div class="col-9">
+            <div class='container'>
+              <div class='row'>
+                <div class=col>
+                  <div class="button_blue" id="refreshbutton">Refresh PDF</div>
+                </div>
+              </div> 
+              <div class='row'>&nbsp;</div>
+              <div class='row'>
+                <div class='col bordergray bigdiv'>
+                    <iframe src="/viewPDF/{{formID}}" width="100%" height='100%' scrolling="true"></iframe> 
+                </div>
+              </div> 
          </div>
   		
 	  </div> <!--Row -->
@@ -63,10 +78,15 @@
 {% endblock %}   
 
 {% block page_specific_js %} 
-    <script src="{% static 'lib/jqueryui/jquery-ui.min.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>    
     <script src="{% static 'js/pdfmerge.js' %}"></script>
     <script src="{% static 'js/editableField.js' %}"></script>
 {% endblock %}
+
+{% block page_specific_css %} 
+ <link href="{% static 'css/jquery-ui.min.css' %}" rel="stylesheet">
+
+   {% endblock %}
 
 
 

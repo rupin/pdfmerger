@@ -1,5 +1,11 @@
 $( document ).ready(function() {
-    $( ".datefield" ).datepicker({dateFormat:"MM d, yy", showButtonPanel: true});
+    $( ".datefield" ).datepicker({
+    								dateFormat:"MM d, yy",
+    								showButtonPanel: true,
+    								changeMonth: true,
+    								changeYear: true,
+    								yearRange: "-100:+0"
+    							});
     //console.log("attached");
 });
 
