@@ -40,7 +40,7 @@
          
        
 
-        
+       
 
         <div class="col borderdiv">             
             <h4>Sign Up Using</h4>
@@ -50,8 +50,7 @@
                 <tr>
                  
                   <td class="formTableCell"> 
-                    <input type="submit" title="Google" value="Google" class="button_blue"/>
-                    
+                    <div class="g-signin2" data-onsuccess="onSignIn"></div>                 
                   
                     
                   </td>
@@ -85,3 +84,27 @@
 {% include "header.html" %}
 
  {% endblock %} 
+
+ {% block page_specific_js %} 
+
+     <script src="https://apis.google.com/js/platform.js" async defer></script>
+     <script language="javascript">
+      function onSignIn(googleUser) {
+        var profile = googleUser.getBasicProfile();
+        console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+        console.log('Name: ' + profile.getName());
+        console.log('Image URL: ' + profile.getImageUrl());
+        console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+      }
+     </script>
+
+{% endblock %}
+
+{% block page-meta %} 
+
+     <meta name="google-signin-client_id" content="975301356530-qfa80s5a1vl00lgjmukg0p1tugck21h3.apps.googleusercontent.com">
+
+
+{% endblock %}
+
+
