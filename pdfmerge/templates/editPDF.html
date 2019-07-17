@@ -30,7 +30,7 @@
                   
                 </div>
                 <div class='question_data_edit row'>
-                  {% ifequal question.field__field_display 'FULLDATE' %}
+                  {% ifequal question.field.field_display 'FULLDATE' %}
                       <input type='text' data-id='{{userData.field}}' value='{{userData.field_text}}' class='datefield'/>
                   {% else %}
                       <input type='text' data-id='{{userData.field}}' value='{{userData.field_text}}'/>
