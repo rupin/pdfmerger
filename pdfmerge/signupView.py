@@ -22,6 +22,8 @@ def signup(request):
             newUser=UserProfile(user=user, field=field, field_text=user_full_name)
             newUser.save()
             return redirect('systemForms')
+        else:
+            form = CustomUserCreationForm()
     else:
-        form = CustomUserCreationForm()
+        form = CustomUserCreationForm(request.GET)
     return render(request, 'registration/signup.html', {'form': form})

@@ -12,10 +12,23 @@ $(".saveEditField").bind('click', function(){
 	//$(this).hide();
 	event.stopPropagation();
 	fieldParentHolder=$(this).parent().siblings("div.question_data_edit")
-	field=fieldParentHolder.children("input");
+	field=fieldParentHolder.children();
 
-	fieldID=field.attr("data-id");
-	fieldValue=field.val()
+	htmlfieldType=field.get(0).tagName
+	fieldValue=""
+	switch(htmlfieldType)
+	{
+		case "SELECT":
+			fieldValue=$(field).children("option:selected").val();
+			break
+
+		case "INPUT":
+			fieldValue=field.val()
+			break
+
+	} 
+
+	fieldID=field.attr("data-id");	
 	formID=$("#formID").val()
 
 	token = $('#csrfmiddlewaretoken').val()
@@ -25,12 +38,28 @@ $(".saveEditField").bind('click', function(){
 	data.formID=formID
 	data.csrfmiddlewaretoken=token
 
+	console.log(data)
+	//return
+
 	var dataSavestatus=saveFieldEdit(data);
 
 	console.log(dataSavestatus)
 	if(dataSavestatus)
 	{
-		$(this).parent().siblings("div.question_data").html(fieldValue).show();
+		switch(htmlfieldType)
+		{
+			case "SELECT":
+				fieldText=$(field).children("option:selected").html();
+				$(this).parent().siblings("div.question_data").html(fieldText).show();
+				break
+
+			case "INPUT":
+				
+				$(this).parent().siblings("div.question_data").html(fieldValue).show();
+				break
+
+		} 
+		
 	}
 
 	$(this).parent().hide();

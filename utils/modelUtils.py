@@ -3,6 +3,7 @@ from dateutil.parser import *
 from datetime import datetime
 import datetime as DT
 import pandas as pd
+from utils import dprint
 
 def saveUserProfileFields(fieldList, p_user, overwrite=True):
 	defaultDate=DT.date(1987, 6,15)
@@ -14,6 +15,7 @@ def saveUserProfileFields(fieldList, p_user, overwrite=True):
 		userProfile=UserProfile.objects.filter(user=p_user,field=fieldObject)
 		field_display=fieldObject.field_display
 
+
 		userProfileExists=userProfile.count()
 		if(field_display=="FULLDATE"):
 			#fieldDate=datetime.datetime.strptime(fieldValue, '%d %B, %Y').date()
@@ -22,17 +24,25 @@ def saveUserProfileFields(fieldList, p_user, overwrite=True):
 			
 			fieldText=parse(fieldValue).date().strftime("%B %d, %Y")
 			#print(fieldText)
+		if(field_display=="MULTICHOICE"):
+			dataIndex=int(fieldValue)
+			fieldText=''
+
 		else:
 			fieldText=fieldValue
+			dataIndex=0
 
 		if(userProfileExists==1): # The User Profile Exists
 			if(overwrite): # lag to prevent overwriting
-				userUpdateStatus=userProfile.update(field_text=fieldText)
+				userUpdateStatus=userProfile.update(field_text=fieldText,data_index=dataIndex)
+				print("updated {} to  {}".format(field.get("ID"),dataIndex ))
+
 				
 		else:
 			
-			userCreatestatus=UserProfile(user=p_user,field=fieldObject, field_text=fieldText,field_date=defaultDate)
+			userCreatestatus=UserProfile(user=p_user,field=fieldObject, field_text=fieldText, data_index=dataIndex,field_date=defaultDate)
 			userCreatestatus.save()
+			print("inserted {} to  {}".format(field.get("ID"),dataIndex ))
 
 
 def getUserFormData(request, pdfid, dropNAValues=True):
@@ -52,6 +62,10 @@ def getUserFormData(request, pdfid, dropNAValues=True):
 																	"field__field_display",
 																	"font_size",
 																	'field_index',
+																	'field_x_choices',
+																	'field_y_choices',
+																	'field__multichoice_options',
+																	'pdf',
 																	 named=True 
 																	 )
 	
@@ -60,10 +74,11 @@ def getUserFormData(request, pdfid, dropNAValues=True):
 																	"field", 
 																	"field_text",
 																	"field__field_description",
-																	"field__field_question",																																
+																	"field__field_question",
+																	"data_index",																																
 																	named=True
 																	)
-	#dprint.dprint(queryset)
+	
 
 	#Set the column as index on which the join is to be made in pandas
 	#print(userFields)
@@ -71,13 +86,13 @@ def getUserFormData(request, pdfid, dropNAValues=True):
 	PDFFieldsDF=pd.DataFrame(list(fieldsinPDF)).set_index('field')
 	
 	#Make the Join
-	combinedDF=userFieldDF.join(PDFFieldsDF, on='field',lsuffix='_left', rsuffix='_right')
+	combinedDF=PDFFieldsDF.join(userFieldDF, on='field',lsuffix='_left', rsuffix='_right')
 	combinedDF.sort_values(by=['field_page_number', 'field_index'],inplace=True)
 	#
 	#remove rows with NA Values. Will happen when the number of rows in the above datasets differ in count. 
 	if(dropNAValues):
 		combinedDF.dropna(0,inplace=True)
-
+	
 	#dprint.dprint(combinedDF)
 	#sort the Dataframe by Field Page Number, then convert it to a list of dictionaries
 	combinedDF.reset_index(inplace=True)
@@ -97,6 +112,8 @@ def addFieldsToProfile(user,form):
 		fieldValue= 'Not Set'
 		if(formField.field.field_display=="FULLDATE"):
 			fieldValue=datetime.now().strftime("%B %d, %Y")
+		if(formField.field.field_display=="MULTICHOICE"):
+			fieldValue=0
 
 		fieldDict["userValue"]=fieldValue
 		fieldData.append(fieldDict)

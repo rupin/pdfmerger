@@ -42,7 +42,8 @@ class Field(models.Model):
 						("MONTH", "MONTH"),
 						("YEAR", "YEAR"),
 						('FULLDATE_TEXT_MONTH','FULLDATE_TEXT_MONTH'),
-						('CHECK_BOX','CHECK_BOX')
+						('CHECK_BOX','CHECK_BOX'),
+						('MULTICHOICE','MULTICHOICE')
 					)
 
 	field_display = models.CharField(max_length=20,choices=FIELD_CHOICES,default="NONE")
@@ -56,6 +57,7 @@ class Field(models.Model):
 					)
 	category= models.CharField(max_length=20,choices=FIELD_CATEGORY_CHOICES,default="PERSONAL")
 	category_order= models.IntegerField(default=0)
+	multichoice_options=models.CharField(max_length=200,default='')
 	def __str__(self):
 		return self.field_description
 	class Meta:
@@ -73,6 +75,9 @@ class PDFFormField(models.Model):
 	field_x_increment=models.DecimalField(max_digits=6,decimal_places=2,default=0)
 	font_size=models.IntegerField(default=12)   
 	field_index=models.IntegerField(default=0) 
+	# for Multichoice, these will have comm seperated values of field positions in X and Y directions
+	field_x_choices=models.CharField(max_length=200,default='')
+	field_y_choices=models.CharField(max_length=200,default='')
 	class Meta:
 		ordering= ("field_page_number","field_index")
 	
@@ -86,6 +91,10 @@ class UserProfile(models.Model):
 	field=models.ForeignKey(Field, on_delete=models.CASCADE,default=11)	
 	field_text=models.CharField(max_length=200,default='')
 	field_date=models.DateField(null=True)
+
+
+	# for multichoice type questions, this stores the index of the user choice
+	data_index=models.IntegerField(default=0)  
 	class Meta:
 		unique_together = ('user', 'field')
 	

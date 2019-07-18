@@ -84,7 +84,8 @@ def addFormToProfile(request,form_id):
 	#get all fields Related to User in UserProfile and that match the fields in the PDFForm
 	userFields=UserProfile.objects.filter(user=loggedUserID).values_list(
 																	"field", 
-																	"field_text",																																		
+																	"field_text",
+																	"data_index",																																		
 																	named=True
 																	)
 	#print(userFields)

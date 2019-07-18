@@ -3,7 +3,7 @@
 {% load static %}
 
 
-
+{% load multichoicefields %}
 
 {% block side-question-tray %}
 
@@ -26,15 +26,31 @@
       			<div class='container justify-content-center align-self-center'>
       					<div class="question_description row"><b>{{userData.field__field_description}}</b></div> 
       					<div class='question_data double-click-edit row'>
-                  {{userData.field_text}}
-                  
+
+                  {% if userData.field__field_display == 'MULTICHOICE' %}
+
+                    {{userData.data_index|multi_choice_field_value:userData.field__multichoice_options}}
+
+                  {%else%}  
+
+                    {{userData.field_text}}
+                  {%endif%} 
                 </div>
+
+                
+
                 <div class='question_data_edit row'>
-                  {% ifequal userData.field__field_display 'FULLDATE' %}
+                  {% if userData.field__field_display == 'FULLDATE' %}
                       <input type='text' data-id='{{userData.field}}'  value='{{userData.field_text}}' class='datefield'/>
+                   {% elif userData.field__field_display == 'MULTICHOICE' %}
+                      <select data-id='{{userData.field}}'>\
+                        {% autoescape off %}
+                          {{userData.data_index|create_html_options_tags:userData.field__multichoice_options}}  
+                        {% endautoescape %}    
+                      </select>
                   {% else %}
                       <input type='text' data-id='{{userData.field}}'  value='{{userData.field_text}}'/>
-                  {%endifequal%}    
+                  {%endif%}    
                 </div>
                 <div class='question_data_edit row' style='padding-top:5px'>
                     <div class="button_blue saveEditField"> Save </div> 

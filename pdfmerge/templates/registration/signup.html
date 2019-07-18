@@ -15,10 +15,19 @@
                 <table class='formtable'>
                 {% for field in form %}
                   <tr class='formTableRow'>
-                    <td class="formTableCell">{{ field.label_tag }}</td>
-                    <td class="formTableCell">{{ field }}</td>
-                  </tr>
+                    <th class="formTableCell" rowspan=2>{{ field.label_tag }}</th>
+                    <td class="formTableCell">{{ field }} 
+                      
+                    </td>
+                   </tr>
+                   <tr class='formTableRow'> 
 
+                    <td class="formTableCellHelp">
+                      {% if field.help_text %}
+                         {{ field.help_text|safe }}
+                      {% endif %}
+                    </td>
+                  </tr>
                {% endfor %}
                 <tr>
                   <td class="formTableCell">&nbsp;</td>

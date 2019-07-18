@@ -118,6 +118,21 @@ td.formTableCell
 {
   padding:10px;
 }
+th.formTableCell 
+{
+  padding:10px;
+  font-weight:bold;
+  text-align: right;
+  vertical-align: text-top;
+}
+
+td.formTableCellHelp
+{
+  padding:10px;
+  font-weight:bold;
+  text-align: right;
+  vertical-align: text-top;
+}
 
 .borderdiv{
   border:1px solid #cccccc;
@@ -127,6 +142,35 @@ td.formTableCell
 .bigdiv
 {
   height: 1500px;
+}
+
+
+table.logintable
+{
+  width:100%;
+}
+table.logintable > tbody > tr 
+{
+  padding:10px;
+}
+
+table.logintable > tbody > tr > td, th 
+{
+  padding:10px;
+  
+}
+
+table.logintable > tbody > tr >th 
+{
+  padding:10px;
+  text-align:right;
+}
+
+ ul.errorlist 
+{
+  padding:10px;  
+  color:red;
+  list-style:none;
 }
 
 

@@ -12,19 +12,30 @@
               <h4>Login</h4>
               <form method="post" action="{% url 'login' %}" class="contactForm">
                {% csrf_token %}
-                <table class='formtable'>
+                <!-- <table class='formtable'>
+                 
 
                 <tr class='formTableRow'>
                   <td class="formTableCell">{{ form.username.label_tag }}</td>
-                  <td class="formTableCell">{{ form.username }}</td>
+                  <td class="formTableCell">{{ form.username }}</td>                  
                 </tr>
 
-                <tr>
+
+               
+                 {% if form.errors %}
+                 <tr class='formTableRow'>
+                    <td></td>
+                    <td> <p class="text-danger">{{ form.errors.all}}</p></td>
+                </tr>
+                 {% endif %}
+              
+
+                <tr class='formTableRow'>
                   <td class="formTableCell">{{ form.password.label_tag }}</td>
                   <td class="formTableCell">{{ form.password }}</td>
                 </tr>
 
-                <tr>
+                <tr class='formTableRow'>
                   <td class="formTableCell">&nbsp;</td>
                   <td class="formTableCell"> 
                     <input type="submit" title="Login" value="Login" class="button_blue">
@@ -32,8 +43,12 @@
                     <input type="hidden" name="next" value="{{ next }}" />
                   </td>
                 </tr>
-              </table>         
-
+              </table>   --> 
+              <table class='logintable'>
+              {{ form }}
+              </table>  
+              <input type="submit" title="Login" value="Login" class="button_blue">    
+              <input type="hidden" name="next" value="{{ next }}" />
                 
               </form>
               

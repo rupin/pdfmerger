@@ -31,7 +31,7 @@ def formatFieldTextByChoice(field):
 	elif(fieldChoice=='FULLDATE'):
 		fieldText = field.get("field_text")
 		dateObject=datetime.strptime(fieldText,"%B %d, %Y") # accept date as string in a certain format
-		fieldText=dateObject.strftime("%d %m %Y")	# convert it to what is required													#Formats to the date 11 10 1984			
+		fieldText=dateObject.strftime("%d %m %Y")	# convert it to what is required 11 10 1984													#Formats to the date 11 10 1984			
 	elif(fieldChoice=='DATE'):
 		fieldText = field.get("field_text")
 		dateObject=datetime.strptime(fieldText,"%B %d, %Y")	
@@ -46,6 +46,8 @@ def formatFieldTextByChoice(field):
 		fieldText=dateObject.strftime("%Y")
 	elif(fieldChoice=='FULLDATE_TEXT_MONTH'):
 		fieldText = field.get("field_text") # date is formatted as June 16, 2019
+	elif(fieldChoice=='MULTICHOICE'):
+		fieldText = "✔"
 		
 	else:
 		fieldText=''
@@ -77,18 +79,28 @@ def addText(FieldData, FormData):
 
 		#print(field)
 		fieldText=formatFieldTextByChoice(field)
-		for letter in fieldText:
-			textobject = my_canvas.beginText()
-			fontSize=field.get("font_size")
-			textobject.setFont('Courier', fontSize)
+		fieldChoice=field.get("field__field_display")		
+		field_x_increment=float(field.get("field_x_increment"))
+		fontSize=field.get("font_size")
+		pdfCellXOffset=cellSizeX -(fontSize/4)
+		pdfCellYOffset=cellSizeY -(fontSize/4)
+		field_x=0
+		field_y=0
+		if(fieldChoice == "MULTICHOICE"):
+			field_x,field_y=getMultiChoicePosition(field)
+		else:
+			field_x=float(field.get("field_x"))
+			field_y=float(field.get("field_y"))
+		
+		for letter in fieldText:			
+			textobject = my_canvas.beginText()			
+			textobject.setFont('Courier', fontSize)			
+			xPos=field_x +(letterCount*field_x_increment) + pdfCellXOffset
+			yPos=field_y + pdfCellYOffset
 
-			pdfCellXOffset=cellSizeX -(fontSize/4)
-			pdfCellYOffset=cellSizeY -(fontSize/4)
-
-			xPos=float(field.get("field_x"))+(letterCount*float(field.get("field_x_increment"))) +pdfCellXOffset
-			yPos=float(field.get("field_y")) + pdfCellYOffset
 			textobject.setTextOrigin(xPos, yPos)
 			#textobject.setCharSpace(10.1)
+			#my_canvas.drawString(xPos, yPos,letter)
 			textobject.textLine(letter)
 			my_canvas.drawText(textobject)
 			letterCount=letterCount+1	
@@ -131,3 +143,21 @@ def downloadFile(webFilePath):
 	new_buffer.write(r.content)
 	return new_buffer
 	
+def getMultiChoicePosition(field):
+	xValues=field.get("field_x_choices")
+	yValues=field.get("field_y_choices")
+	data_index=field.get("data_index")
+
+	xList=xValues.split(",")
+	yList=yValues.split(",")
+	field_x_pos=0
+	field_y_pos=0
+	if(len(xList)-1 >= data_index and len(yList)-1 >= data_index):
+		field_x_pos=float(xList[data_index])
+		field_y_pos=float(yList[data_index])
+		#return int(), int(yList[data_index])
+
+	return field_x_pos,field_y_pos
+
+
+	#return 20,30
