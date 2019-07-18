@@ -97,7 +97,7 @@ def getUserFormData(request, pdfid, dropNAValues=True):
 	#sort the Dataframe by Field Page Number, then convert it to a list of dictionaries
 	combinedDF.reset_index(inplace=True)
 	dataSet=combinedDF.to_dict('records')
-	#print(dataSet)
+	print(dataSet)
 
 	return dataSet, formData
 
